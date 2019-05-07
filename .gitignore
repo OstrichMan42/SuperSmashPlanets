@@ -1,0 +1,9 @@
+# assets folder
+assets/
+
+# Any images we might have
+*.jpg
+*.png
+
+# This thing
+.DS_Store
