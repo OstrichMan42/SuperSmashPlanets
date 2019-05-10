@@ -9,7 +9,7 @@ var Planet = function(game, mass, character, player) {
 	this.mass = mass;
 	this.MASS = mass; // This value does not change past here
 
-	// Set player to a useful value
+	// Set starting position based on player
 	if (player == 2){
 		var startX = game.world.centerX + 250;
 	} else if (player == 1){
@@ -40,7 +40,7 @@ var Planet = function(game, mass, character, player) {
 		game.players.add(this);
 		this.anchor.set(0.5);
 		this.scale.setTo(0.2);
-		this.body.setCircle(150);
+		this.body.setCircle(300);
 		this.body.drag.set(5);
 		this.body.bounce.set(0.1);
 		console.log(this);
