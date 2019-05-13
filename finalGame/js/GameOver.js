@@ -10,8 +10,9 @@ GameOver.prototype = {
 		console.log("loaded game over");
 	},
 	create: function() {
-		game.stage.backgroundColor = "#0000"
 		console.log("game over created");
+		var text = "player " + this.winner.player + " wins.\nPress space to play again";
+		var gameOverText = game.add.text(game.world.centerX - 140, game.world.centerY - 50, text, { fontSize: '30px', fill: '#000000', align: 'center'});
 	},
 	update: function() {
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
