@@ -2,7 +2,9 @@
 
 var GameOver = function(game) {};
 GameOver.prototype = {
-	init: function() {
+	init: function(winner, score) {
+		this.winner = winner;
+		this.score = score;
 	},
 	preload: function() {
 		console.log("loaded game over");
