@@ -111,8 +111,15 @@ Play.prototype = {
    		if (game.physics.arcade.collide(game.asteroids)){
    			console.log('asteroids bumped');
    		}
-   		if (game.physics.arcade.collide(game.players, game.asteroids)){
-   			console.log('players bumped an asteroid');
+   		if (game.physics.arcade.collide(this.earth, game.asteroids)){
+   			console.log('earth bumped an asteroid');
+   			game.state.start('GameOver', false, false, this.mars);
+
+   		}
+   		if (game.physics.arcade.collide(this.mars, game.asteroids)){
+   			console.log('mars bumped an asteroid');
+   			game.state.start('GameOver', false, false, this.earth);
+
    		}
 
    		// Debug stuff
@@ -134,5 +141,4 @@ Play.prototype = {
 		}
 	}
 }
-
 game.state.add("Play", Play);
