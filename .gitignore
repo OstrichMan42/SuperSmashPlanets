@@ -2,5 +2,9 @@
 *.jpg
 *.png
 
+# Any audio
+*.wav
+*.mp3
+
 # This thing
 .DS_Store
