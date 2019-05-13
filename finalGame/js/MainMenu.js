@@ -24,7 +24,9 @@ MainMenu.prototype = {
 	},
 	update: function() {
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
-			game.state.start("Play");
+			game.state.start("Play", true, false, false);
+		} else if(game.input.keyboard.isDown(Phaser.Keyboard.D)){
+			game.state.start("Play", true, false, true);
 		}
 	}
 }

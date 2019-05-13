@@ -3,9 +3,10 @@
 var Play = function(game) {};
 
 Play.prototype = {
-	init: function(){
+	init: function(debug){
 		// Necessary variables
 		this.time;
+		this.debug = debug;
 		this.PLAYERSPEED = 5;
 
 		// Make audio players
@@ -113,6 +114,7 @@ Play.prototype = {
    		}
    		if (game.physics.arcade.collide(game.players, game.asteroids)){
    			console.log('players bumped an asteroid');
+   			game.state.start("GameOver", false, false, this.earth);
    		}
 
    		// Debug stuff
