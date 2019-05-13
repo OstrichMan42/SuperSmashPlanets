@@ -8,10 +8,9 @@ MainMenu.prototype = {
 		console.log("loaded main menu");
 		// preload assets
 		// game.load.image('bg', 'assets/img/Background.png'); // Image from https://www.behance.net/vitaliyvill
-
-		// 
 	    game.load.image('hole', 'assets/img/BlackHole.jpg');
 	    game.load.image('earth', 'assets/img/EarthSprite.png');
+	    game.load.image('mars', 'assets/img/AsteroidTrail.png');
 	    game.load.image('mars', 'assets/img/MarsSprite.png');
 	    game.load.image('asteroid', 'assets/img/AsteroidSprite.png');
 	    
