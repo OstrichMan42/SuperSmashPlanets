@@ -30,19 +30,25 @@ var Planet = function(game, mass, character, player) {
 	// Put sprite in its proper group
 	if (player == 0){
 		game.asteroids.add(this);
-		this.maxSpeed = 250;
+		this.maxSpeed = 300;
 		this.anchor.set(0.5);
 		this.scale.setTo(0.1);
 		this.body.setCircle(150);
 		this.body.bounce.set(2);
 		console.log(this);
+
+		// Add a timer to create a trail
+		// game.time.events.loop(250, Trail, this, game, this);
+
 	} else if (player == 1 || player == 2){
 		game.players.add(this);
+		this.maxSpeed = 200;
 		this.anchor.set(0.5);
 		this.scale.setTo(0.2);
 		this.body.setCircle(150);
-		this.body.drag.set(5);
+		this.body.drag.set(25);
 		this.body.bounce.set(0.1);
+		this.body.collideWorldBounds = true;
 		console.log(this);
 	}
 }
@@ -51,17 +57,22 @@ Planet.prototype = Object.create(Phaser.Sprite.prototype);
 Planet.prototype.constructor = Planet;
 
 Planet.prototype.update = function() {
+	// For asteroid
 	if (this.player == 0){
 		game.players.forEach(Gravity, this, true);
+
+	// For player 1
 	} else if (this.player == 1) {
-		this.body.velocity.clamp(-150, 150);
+		this.body.velocity.clamp(-this.maxSpeed, this.maxSpeed);
 		if(game.input.keyboard.isDown(Phaser.Keyboard.E)){
 			this.mass = this.MASS * 3;
 		} else {
 			this.mass = this.MASS;
 		}
+
+	// For player 2
 	} else if (this.player == 2) {
-		this.body.velocity.clamp(-150, 150);
+		this.body.velocity.clamp(-this.maxSpeed, this.maxSpeed);
 		if(game.input.keyboard.isDown(Phaser.Keyboard.M)){
 			this.mass = this.MASS * 3;
 		} else {
@@ -98,7 +109,7 @@ function Gravity (planet) {
    	// This makes it so that the asteroid can pick up in speed if it is near a planet, and will slowly revert to its previous top speed if it gets farther away
    	if (distance < 50){
    		this.maxSpeed += 10;
-   	} else if (this.maxSpeed > 250){
+   	} else if (this.maxSpeed > 300){
    		this.maxSpeed--;
    	}
    	this.body.velocity.clamp(-this.maxSpeed, this.maxSpeed);
