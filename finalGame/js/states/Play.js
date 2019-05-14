@@ -61,11 +61,6 @@ Play.prototype = {
 		// run game loop
 		// var vX;
     	// var vY;
-   		
-		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
-			console.log(distance);
-			console.log(this.asteroid.body.velocity);
-		}
 
 		// Player input
 		if (game.input.keyboard.isDown(Phaser.Keyboard.A))
@@ -120,12 +115,12 @@ Play.prototype = {
    		// Player gets hit
    		if (game.physics.arcade.collide(this.earth, game.asteroids)){
    			console.log('earth bumped an asteroid');
-   			this.musicPlayer.stop();
+   			//this.musicPlayer.stop();
    			game.state.start('GameOver', false, false, this.mars);
    		}
    		if (game.physics.arcade.collide(this.mars, game.asteroids)){
    			console.log('mars bumped an asteroid');
-   			this.musicPlayer.stop();
+   			//this.musicPlayer.stop();
    			game.state.start('GameOver', false, false, this.earth);
    		}
 
