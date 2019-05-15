@@ -2,5 +2,13 @@
 *.jpg
 *.png
 
+# Any audio
+*.wav
+*.mp3
+
+# If we have any compressed files
+*.zip
+*.rar
+
 # This thing
 .DS_Store

@@ -3,15 +3,19 @@
 var Play = function(game) {};
 
 Play.prototype = {
-	init: function(){
+	init: function(debug){
 		// Necessary variables
 		this.time;
-		this.PLAYERSPEED = 5;
+		this.debug = debug;
+		this.PLAYERSPEED = 15;
 
 		// Make audio players
-
+		this.musicPlayer = game.add.audio('music');
 	},
 	create: function() {
+		// Start music
+		this.musicPlayer.play("", 0, 1, true);
+
 		// Create groups for players and asteroids
 		game.players = game.add.group();
 		// this.players.enableBody = true;
@@ -39,13 +43,14 @@ Play.prototype = {
 		// Make controller
 		this.cursors = game.input.keyboard.createCursorKeys();
 
-		// Make a timer for spawning obstacles
+		// Make a timer for spawning bits
 		// help from http://jsfiddle.net/lewster32/vd70o41p/ and phaser documentation
-		this.time = game.time.create();
-		this.time.start();
+		// this.time = game.time.create();
+		// this.time.start();
+
+		game.stage.backgroundColor = "#000000";
 
 		// Used for debugging some code from https://phaser.io/examples/v2/sprites/anchor
-		this.debug = true;
 		this.p1Point = new Phaser.Point();
 		this.p2Point = new Phaser.Point();
 		this.astPoint = new Phaser.Point();
@@ -56,11 +61,6 @@ Play.prototype = {
 		// run game loop
 		// var vX;
     	// var vY;
-   		
-		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
-			console.log(distance);
-			console.log(this.asteroid.body.velocity);
-		}
 
 		// Player input
 		if (game.input.keyboard.isDown(Phaser.Keyboard.A))
@@ -111,15 +111,17 @@ Play.prototype = {
    		if (game.physics.arcade.collide(game.asteroids)){
    			console.log('asteroids bumped');
    		}
+
+   		// Player gets hit
    		if (game.physics.arcade.collide(this.earth, game.asteroids)){
    			console.log('earth bumped an asteroid');
+   			//this.musicPlayer.stop();
    			game.state.start('GameOver', false, false, this.mars);
-
    		}
    		if (game.physics.arcade.collide(this.mars, game.asteroids)){
    			console.log('mars bumped an asteroid');
+   			//this.musicPlayer.stop();
    			game.state.start('GameOver', false, false, this.earth);
-
    		}
 
    		// Debug stuff
