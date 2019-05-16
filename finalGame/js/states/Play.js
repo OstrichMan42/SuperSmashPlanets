@@ -10,11 +10,11 @@ Play.prototype = {
 		this.PLAYERSPEED = 15;
 
 		// Make audio players
-		this.musicPlayer = game.add.audio('music');
+		if(game.musicPlayer == null) game.musicPlayer = game.add.audio('music');
 	},
 	create: function() {
 		// Start music
-		this.musicPlayer.play("", 0, 1, true);
+		if(!game.musicPlayer.isPlaying)game.musicPlayer.play("", 0, 1, true);
 
 		// Create groups for players and asteroids
 		game.players = game.add.group();

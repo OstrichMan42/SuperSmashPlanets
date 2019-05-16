@@ -124,10 +124,11 @@ function Gravity (planet) {
    	Phaser.Point.add(this.body.velocity, velocityVector, this.body.velocity);
    	// .clamp keeps the value between the two numbers given, can be used to set a max speeds
    	// This makes it so that the asteroid can pick up in speed if it is near a planet, and will slowly revert to its previous top speed if it gets farther away
-   	if (distance < 50){
-   		this.maxSpeed += 10;
-   	} else if (this.maxSpeed > 250){
-   		this.maxSpeed--;
+   	if (distance < 125){
+   		this.maxSpeed += 5;
+   		console.log(this.maxSpeed);
+   	} else if (this.maxSpeed > 300){
+   		this.maxSpeed -= 2;
    	}
    	this.body.velocity.clamp(-this.maxSpeed, this.maxSpeed);
 }
