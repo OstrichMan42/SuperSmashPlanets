@@ -1,6 +1,6 @@
 "use strict";
 
-var game = new Phaser.Game(800, 619, Phaser.AUTO);
+var game = new Phaser.Game(700, 700, Phaser.AUTO);
 
 var MainMenu = function(game) {};
 MainMenu.prototype = {
@@ -23,7 +23,10 @@ MainMenu.prototype = {
 	    console.log("loaded assets");
 	},
 	create: function() {
-		var Menu = this.add.tileSprite( 0, 0, game.width, game.height, 'menu');
+		// Space is big. Really big. You just won't believe how vastly, hugely, mind-bogglingly big it is. I mean, you may think it's a long way down the road to the chemist, but that's just peanuts to space.
+		game.world.setBounds(0, 0, 1500, 1500);
+
+		var Menu = game.add.sprite(0, 0, 'menu');
 		console.log("main menu created");
 	},
 	update: function() {

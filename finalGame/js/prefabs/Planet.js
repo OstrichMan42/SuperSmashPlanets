@@ -30,9 +30,9 @@ var Planet = function(game, mass, character, player) {
 	// Put sprite in its proper group
 	if (player == 0){
 		game.asteroids.add(this);
-		this.maxSpeed = 250;
+		this.maxSpeed = 300;
 		this.anchor.set(0.5);
-		this.scale.setTo(0.1);
+		this.scale.setTo(0.11);
 		// this one line makes a circular hitbox
 		this.body.setCircle(150);
 		// for fun times
@@ -45,13 +45,13 @@ var Planet = function(game, mass, character, player) {
 
 	} else if (player == 1 || player == 2){
 		game.players.add(this);
-		this.maxSpeed = 200;
+		this.maxSpeed = 250;
 		this.anchor.set(0.5);
-		this.scale.setTo(0.1);
+		this.scale.setTo(0.12);
 		// this one line makes a circular hitbox
 		this.body.setCircle(300);
-		this.body.drag.set(150);
-		this.body.bounce.set(0.1);
+		this.body.drag.set(200);
+		this.body.bounce.set(0.5);
 		this.body.collideWorldBounds = true;
 		console.log(this);
 	}
@@ -98,6 +98,9 @@ function Gravity (planet) {
 	*/ 
     // Calculate gravity
 
+    // Value to subtract from distance to make gravity stronger. Bigger number = stronger gravity
+    var spacing = 25;
+
     // Make 4 placeholder points
     var destBody = new Phaser.Point(); // The x and y of the destination
    	var thisBody = new Phaser.Point(); // The x and y of this
@@ -117,18 +120,25 @@ function Gravity (planet) {
    		
    	// Create a vector with magnitude greater than one 
    	gravityVector.clone(velocityVector);
-   	velocityVector.setMagnitude(planet.mass/Math.max(distance/2, 1));
+   	velocityVector.setMagnitude(planet.mass/Math.max((distance-spacing)/2, 1));
    	// console.log(velocityVector);
 
    	// Alter velocity based on gravity
    	Phaser.Point.add(this.body.velocity, velocityVector, this.body.velocity);
    	// .clamp keeps the value between the two numbers given, can be used to set a max speeds
-   	// This makes it so that the asteroid can pick up in speed if it is near a planet, and will slowly revert to its previous top speed if it gets farther away
+   	// This makes it so Sthat the asteroid can pick up in speed if it is near a planet, and will slowly revert to its previous top speed if it gets farther away
    	if (distance < 125){
    		this.maxSpeed += 5;
-   		console.log(this.maxSpeed);
+   		// console.log(this.maxSpeed);
    	} else if (this.maxSpeed > 300){
    		this.maxSpeed -= 2;
+   	}
+
+   	// Check if the asteroid is out of the world, if it is then set it's max speed to something real small so it comes back quickly, also gives players time to react to something offscreen
+   	if (!this.inWorld){
+   		this.maxSpeed = 10;
+   	} else if (this.maxSpeed == 10){
+   		this.maxSpeed = 250
    	}
    	this.body.velocity.clamp(-this.maxSpeed, this.maxSpeed);
 }

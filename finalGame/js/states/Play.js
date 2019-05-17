@@ -7,7 +7,7 @@ Play.prototype = {
 		// Necessary variables
 		this.time;
 		this.debug = debug;
-		this.PLAYERSPEED = 15;
+		this.PLAYERSPEED = 25;
 
 		// Make audio players
 		if(game.musicPlayer == null) game.musicPlayer = game.add.audio('music');
@@ -15,6 +15,10 @@ Play.prototype = {
 	create: function() {
 		// Start music
 		if(!game.musicPlayer.isPlaying)game.musicPlayer.play("", 0, 1, true);
+
+		// Add background
+		var bg = game.add.sprite(0, 0, 'spaceBackground');
+		bg.scale.setTo(0.5, 1);
 
 		// Create groups for players and asteroids
 		game.players = game.add.group();
@@ -44,9 +48,12 @@ Play.prototype = {
 		this.cursors = game.input.keyboard.createCursorKeys();
 
 		// Make a timer for spawning bits
-		// help from http://jsfiddle.net/lewster32/vd70o41p/ and phaser documentation
 		// this.time = game.time.create();
 		// this.time.start();
+
+		// An empty sprite that I create just because the camera needs a sprite to follow
+		this.cameraCenter = game.add.sprite(0, 0, '');
+		game.camera.follow(this.cameraCenter, 0.7, 0.7);
 
 		game.stage.backgroundColor = "#000000";
 
@@ -59,8 +66,13 @@ Play.prototype = {
 
 	update: function() {
 		// run game loop
-		// var vX;
-    	// var vY;
+		// Get the x,y coordinates from these sprites
+		this.p1Point.copyFrom(this.earth);
+		this.p2Point.copyFrom(this.mars);
+		this.astPoint.copyFrom(this.asteroid);
+
+		// Get camera center from earth position and mars
+		Phaser.Point.interpolate(this.p1Point, this.p2Point, 0.5).copyTo(this.cameraCenter);
 
 		// Player input
 		if (game.input.keyboard.isDown(Phaser.Keyboard.A))
@@ -122,13 +134,6 @@ Play.prototype = {
    			console.log('mars bumped an asteroid');
    			//this.musicPlayer.stop();
    			game.state.start('GameOver', false, false, this.earth);
-   		}
-
-   		// Debug stuff
-   		if (this.debug){
-   			this.p1Point.copyFrom(this.earth);
-			this.p2Point.copyFrom(this.mars);
-			this.astPoint.copyFrom(this.asteroid);
    		}
 	},
 
