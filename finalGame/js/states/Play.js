@@ -52,8 +52,9 @@ Play.prototype = {
 		// this.time.start();
 
 		// An empty sprite that I create just because the camera needs a sprite to follow
-		this.cameraCenter = game.add.sprite(0, 0, '');
-		game.camera.follow(this.cameraCenter, 0.7, 0.7);
+		// this.cameraCenter = game.add.sprite(0, 0, '');
+		// game.camera.follow(this.cameraCenter, 0.7, 0.7);
+		this.cameraCenter = new cameraCenter(game, [this.earth, this.mars]);
 
 		game.stage.backgroundColor = "#000000";
 
@@ -61,6 +62,7 @@ Play.prototype = {
 		this.p1Point = new Phaser.Point();
 		this.p2Point = new Phaser.Point();
 		this.astPoint = new Phaser.Point();
+		this.camPoint = new Phaser.Point();
 		if (this.debug) game.stage.backgroundColor = "#82371a";
 	},
 
@@ -70,9 +72,10 @@ Play.prototype = {
 		this.p1Point.copyFrom(this.earth);
 		this.p2Point.copyFrom(this.mars);
 		this.astPoint.copyFrom(this.asteroid);
+		this.camPoint.copyFrom(this.cameraCenter);
 
 		// Get camera center from earth position and mars
-		Phaser.Point.interpolate(this.p1Point, this.p2Point, 0.5).copyTo(this.cameraCenter);
+		// Phaser.Point.interpolate(this.p1Point, this.p2Point, 0.5).copyTo(this.cameraCenter);
 
 		// Player input
 		if (game.input.keyboard.isDown(Phaser.Keyboard.A))
@@ -142,6 +145,7 @@ Play.prototype = {
 			game.debug.geom(this.p1Point, '#1546c1');
 			game.debug.geom(this.p2Point, '#c13715');
 			game.debug.geom(this.astPoint, '#562d13');
+			game.debug.geom(this.camPoint, '#000000');
 			game.debug.body(this.earth);
 			game.debug.body(this.mars);
 			game.debug.body(this.asteroid);

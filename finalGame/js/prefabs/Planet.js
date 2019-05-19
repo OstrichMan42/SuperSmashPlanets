@@ -51,7 +51,7 @@ var Planet = function(game, mass, character, player) {
 		// this one line makes a circular hitbox
 		this.body.setCircle(300);
 		this.body.drag.set(200);
-		this.body.bounce.set(0.5);
+		this.body.bounce.set(1.5);
 		this.body.collideWorldBounds = true;
 		console.log(this);
 	}
