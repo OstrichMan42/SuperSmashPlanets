@@ -47,7 +47,7 @@ Play.prototype = {
 		// Make controller
 		this.cursors = game.input.keyboard.createCursorKeys();
 
-		// Make a timer for spawning bits
+		// Make a timer for timing
 		// this.time = game.time.create();
 		// this.time.start();
 
@@ -145,7 +145,7 @@ Play.prototype = {
 			game.debug.geom(this.p1Point, '#1546c1');
 			game.debug.geom(this.p2Point, '#c13715');
 			game.debug.geom(this.astPoint, '#562d13');
-			game.debug.geom(this.camPoint, '#000000');
+			game.debug.geom(this.camPoint, '#ffffff');
 			game.debug.body(this.earth);
 			game.debug.body(this.mars);
 			game.debug.body(this.asteroid);

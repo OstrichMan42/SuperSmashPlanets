@@ -8,12 +8,14 @@ var Planet = function(game, mass, character, player) {
 	this.player = player;
 	this.mass = mass;
 	this.MASS = mass; // This value does not change past here
+	//this.trail = [];
+	var PLAYER_STARTING_DISTANCE = 300;
 
 	// Set starting position based on player
 	if (player == 2){
-		var startX = game.world.centerX + 250;
+		var startX = game.world.centerX + PLAYER_STARTING_DISTANCE;
 	} else if (player == 1){
-		var startX = game.world.centerX - 250;
+		var startX = game.world.centerX - PLAYER_STARTING_DISTANCE;
 	} else if (player == 0){
 		var startX = game.world.centerX;
 	} else {
@@ -38,10 +40,12 @@ var Planet = function(game, mass, character, player) {
 		// for fun times
 		// this.body.collideWorldBounds = true;
 		this.body.bounce.set(2);
-		console.log(this);
 
 		// Add a timer to create a trail
 		// game.time.events.loop(250, Trail, this, game, this);
+
+		// Add a trail
+		// this.trail = new Trail(game, this, []);
 
 	} else if (player == 1 || player == 2){
 		game.players.add(this);
@@ -51,7 +55,7 @@ var Planet = function(game, mass, character, player) {
 		// this one line makes a circular hitbox
 		this.body.setCircle(300);
 		this.body.drag.set(200);
-		this.body.bounce.set(1.5);
+		this.body.bounce.set(1.1);
 		this.body.collideWorldBounds = true;
 		console.log(this);
 	}
@@ -63,7 +67,13 @@ Planet.prototype.constructor = Planet;
 Planet.prototype.update = function() {
 	// For asteroid
 	if (this.player == 0){
+		// Run gravity
 		game.players.forEach(Gravity, this, true);
+  	 	this.body.velocity.clamp(-this.maxSpeed, this.maxSpeed);
+
+		// Make a trail
+		//this.trail.push(new Trail(game, this, this.trail));
+		//this.bringToTop();
 
 	// For player 1
 	} else if (this.player == 1) {
@@ -113,6 +123,7 @@ function Gravity (planet) {
 
    	// Phaser has a distance function for points, it gives a number that is used to determine how strong the gravity will be
    	var distance = thisBody.distance(destBody, true);
+   	var massDivider = Math.min(Math.max((distance-spacing)/2, 1), planet.mass);
 
    	// Create vector with direction towards the body that the asteroid is being pulled to
    	Phaser.Point.subtract(destBody, thisBody, gravityVector);
@@ -120,13 +131,13 @@ function Gravity (planet) {
    		
    	// Create a vector with magnitude greater than one 
    	gravityVector.clone(velocityVector);
-   	velocityVector.setMagnitude(planet.mass/Math.max((distance-spacing)/2, 1));
+   	velocityVector.setMagnitude(planet.mass/massDivider);
    	// console.log(velocityVector);
 
    	// Alter velocity based on gravity
    	Phaser.Point.add(this.body.velocity, velocityVector, this.body.velocity);
    	// .clamp keeps the value between the two numbers given, can be used to set a max speeds
-   	// This makes it so Sthat the asteroid can pick up in speed if it is near a planet, and will slowly revert to its previous top speed if it gets farther away
+   	// This makes it so that the asteroid can pick up in speed if it is near a planet, and will slowly revert to its previous top speed if it gets farther away
    	if (distance < 125){
    		this.maxSpeed += 5;
    		// console.log(this.maxSpeed);
@@ -140,5 +151,4 @@ function Gravity (planet) {
    	} else if (this.maxSpeed == 10){
    		this.maxSpeed = 250
    	}
-   	this.body.velocity.clamp(-this.maxSpeed, this.maxSpeed);
 }
