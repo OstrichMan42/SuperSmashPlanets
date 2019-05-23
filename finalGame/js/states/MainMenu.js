@@ -1,6 +1,6 @@
 "use strict";
 
-var game = new Phaser.Game(700, 700, Phaser.AUTO);
+var game = new Phaser.Game(800, 800, Phaser.AUTO);
 
 var MainMenu = function(game) {};
 MainMenu.prototype = {

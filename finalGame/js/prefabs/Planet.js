@@ -84,6 +84,27 @@ Planet.prototype.update = function() {
 			this.mass = this.MASS;
 		}
 
+		if (game.input.keyboard.isDown(Phaser.Keyboard.A))
+	    {
+	        // Move left if pressing left
+	        this.body.velocity.x += -game.PLAYERSPEED;
+	    }
+	    if (game.input.keyboard.isDown(Phaser.Keyboard.D))
+	    {
+	        // Move right if pressing right
+	        this.body.velocity.x += game.PLAYERSPEED;
+	    }
+	    if (game.input.keyboard.isDown(Phaser.Keyboard.W))
+	    {
+	    	// Move up if pressing up
+	        this.body.velocity.y += -game.PLAYERSPEED;
+	    }
+	    if (game.input.keyboard.isDown(Phaser.Keyboard.S))
+	    {
+	    	// Move down if pressing down
+	        this.body.velocity.y += game.PLAYERSPEED;
+	    }
+
 	// For player 2
 	} else if (this.player == 2) {
 		this.body.velocity.clamp(-this.maxSpeed, this.maxSpeed);
@@ -92,6 +113,27 @@ Planet.prototype.update = function() {
 		} else {
 			this.mass = this.MASS;
 		}
+
+		if (game.cursors.left.isDown)
+	    {
+	        // Move left if pressing left
+	        this.body.velocity.x += -game.PLAYERSPEED;
+	    }
+	    if (game.cursors.right.isDown)
+	    {
+	        // Move right if pressing right
+	        this.body.velocity.x += game.PLAYERSPEED;
+	    }
+	    if (game.cursors.up.isDown)
+	    {
+	    	// Move up if pressing up
+	        this.body.velocity.y += -game.PLAYERSPEED;
+	    }
+	    if (game.cursors.down.isDown)
+	    {
+	    	// Move down if pressing down
+	        this.body.velocity.y += game.PLAYERSPEED;
+	    }
 	}
 }
 

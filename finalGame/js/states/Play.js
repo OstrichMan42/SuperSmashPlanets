@@ -7,7 +7,7 @@ Play.prototype = {
 		// Necessary variables
 		this.time;
 		this.debug = debug;
-		this.PLAYERSPEED = 25;
+		game.PLAYERSPEED = 25;
 
 		// Make audio players
 		if(game.musicPlayer == null) game.musicPlayer = game.add.audio('music');
@@ -32,10 +32,10 @@ Play.prototype = {
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 			
 		// Make character 1
-		this.earth = new Planet(game, 500, 'earth', 1);
+		this.earth = new Planet(game, 700, 'earth', 1);
 
 		// Make character 2
-		this.mars = new Planet(game, 500, 'mars', 2);
+		this.mars = new Planet(game, 700, 'mars', 2);
 
 		// Make asteroid
 		this.asteroid = new Planet(game, 500, 'asteroid', 0);
@@ -45,7 +45,7 @@ Play.prototype = {
 		// this.asteroid.body.velocity.x = -10;
 		
 		// Make controller
-		this.cursors = game.input.keyboard.createCursorKeys();
+		game.cursors = game.input.keyboard.createCursorKeys();
 
 		// Make a timer for timing
 		// this.time = game.time.create();
@@ -76,48 +76,6 @@ Play.prototype = {
 
 		// Get camera center from earth position and mars
 		// Phaser.Point.interpolate(this.p1Point, this.p2Point, 0.5).copyTo(this.cameraCenter);
-
-		// Player input
-		if (game.input.keyboard.isDown(Phaser.Keyboard.A))
-	    {
-	        // Move left if pressing left
-	        this.earth.body.velocity.x += -this.PLAYERSPEED;
-	    }
-	    if (game.input.keyboard.isDown(Phaser.Keyboard.D))
-	    {
-	        // Move right if pressing right
-	        this.earth.body.velocity.x += this.PLAYERSPEED;
-	    }
-	    if (game.input.keyboard.isDown(Phaser.Keyboard.W))
-	    {
-	    	// Move up if pressing up
-	        this.earth.body.velocity.y += -this.PLAYERSPEED;
-	    }
-	    if (game.input.keyboard.isDown(Phaser.Keyboard.S))
-	    {
-	    	// Move down if pressing down
-	        this.earth.body.velocity.y += this.PLAYERSPEED;
-	    }
-		if (this.cursors.left.isDown)
-	    {
-	        // Move left if pressing left
-	        this.mars.body.velocity.x += -this.PLAYERSPEED;
-	    }
-	    if (this.cursors.right.isDown)
-	    {
-	        // Move right if pressing right
-	        this.mars.body.velocity.x += this.PLAYERSPEED;
-	    }
-	    if (this.cursors.up.isDown)
-	    {
-	    	// Move up if pressing up
-	        this.mars.body.velocity.y += -this.PLAYERSPEED;
-	    }
-	    if (this.cursors.down.isDown)
-	    {
-	    	// Move down if pressing down
-	        this.mars.body.velocity.y += this.PLAYERSPEED;
-	    }
 
    		// Handle Collisions
    		if (game.physics.arcade.collide(game.players)){
