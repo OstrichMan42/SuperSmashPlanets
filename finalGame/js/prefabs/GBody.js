@@ -3,7 +3,7 @@
 // Mass is the mass of the object
 // character is the key of the sprite,
 // player is 1 for player 1, 2 for player 2, or 0 for an asteroid
-var Planet = function(game, mass, character, player) {
+var GBody = function(game, mass, character, player) {
 	// Save important arguments
 	this.player = player;
 	this.mass = mass;
@@ -18,13 +18,42 @@ var Planet = function(game, mass, character, player) {
 		var startX = game.world.centerX - PLAYER_STARTING_DISTANCE;
 	} else if (player == 0){
 		var startX = game.world.centerX;
+	} else if (player == 3){
+		console.log("making debris");
 	} else {
 		console.error('error: invalid player key');
 	}
 
-	// Make the sprite when function is called
-	Phaser.Sprite.call(this, game, startX, game.world.centerY, character);
+	// Set necessary controls
+	if (player == 1) {
+		// Make gravity key
+		this.gravKey = game.input.keyboard.addKey(Phaser.Keyboard.C);
+    	this.gravKey.onDown.add(ChangeGravity, this);
+	} else if (player == 2) {
+		// Make controller
+		this.cursors = game.input.keyboard.createCursorKeys();
 
+		// Make gravity key
+		this.gravKey = game.input.keyboard.addKey(Phaser.Keyboard.M);
+    	this.gravKey.onDown.add(ChangeGravity, this);
+	} else if (player == 3){
+		var loser;
+		if (game.players.children[0].alive) loser = game.players.children[1];
+		else loser = game.players.children[0];
+		console.log(loser);
+		Phaser.Sprite.call(this, game, loser.x + game.rnd.integerInRange(-10, 10), loser.y + game.rnd.integerInRange(-10, 10), character);
+	}
+
+	// Make the sprite when function is called
+	if (player != 3){
+		Phaser.Sprite.call(this, game, startX, game.world.centerY, character);	
+	}
+
+	// Prepare for inevitable death
+	if (this.player != 3){
+		//this.events.onKilled.add(DeathAnimation, this);
+	}
+	
 	// Make it real
 	game.physics.arcade.enable(this);
 	game.add.existing(this);
@@ -37,8 +66,6 @@ var Planet = function(game, mass, character, player) {
 		this.scale.setTo(0.11);
 		// this one line makes a circular hitbox
 		this.body.setCircle(150);
-		// for fun times
-		// this.body.collideWorldBounds = true;
 		this.body.bounce.set(2);
 
 		// Add a timer to create a trail
@@ -58,17 +85,28 @@ var Planet = function(game, mass, character, player) {
 		this.body.bounce.set(1.1);
 		this.body.collideWorldBounds = true;
 		console.log(this);
+	} else if (player == 3){
+		game.debris.add(this);
+		game.physics.arcade.enable(this);
+
+		this.scale.setTo(0.1);
+		this.body.setCircle(100);
+		this.body.bounce.set(0.7);
+		this.body.velocity.setTo(game.rnd.integerInRange(-25, 25), game.rnd.integerInRange(-25, 25));
+		this.body.drag.setTo(20, 20);
+		this.body.angularVelocity = game.rnd.integerInRange(-25, 25);
 	}
 }
 
-Planet.prototype = Object.create(Phaser.Sprite.prototype);
-Planet.prototype.constructor = Planet;
+GBody.prototype = Object.create(Phaser.Sprite.prototype);
+GBody.prototype.constructor = GBody;
 
-Planet.prototype.update = function() {
+GBody.prototype.update = function() {
 	// For asteroid
 	if (this.player == 0){
 		// Run gravity
-		game.players.forEach(Gravity, this, true);
+		Gravity.call(this, game.players.children);
+		//game.players.forEach(Gravity, this, true);
   	 	this.body.velocity.clamp(-this.maxSpeed, this.maxSpeed);
 
 		// Make a trail
@@ -78,11 +116,6 @@ Planet.prototype.update = function() {
 	// For player 1
 	} else if (this.player == 1) {
 		this.body.velocity.clamp(-this.maxSpeed, this.maxSpeed);
-		if(game.input.keyboard.isDown(Phaser.Keyboard.E)){
-			this.mass = this.MASS * 3;
-		} else {
-			this.mass = this.MASS;
-		}
 
 		if (game.input.keyboard.isDown(Phaser.Keyboard.A))
 	    {
@@ -108,11 +141,6 @@ Planet.prototype.update = function() {
 	// For player 2
 	} else if (this.player == 2) {
 		this.body.velocity.clamp(-this.maxSpeed, this.maxSpeed);
-		if(game.input.keyboard.isDown(Phaser.Keyboard.M)){
-			this.mass = this.MASS * 3;
-		} else {
-			this.mass = this.MASS;
-		}
 
 		if (game.cursors.left.isDown)
 	    {
@@ -134,10 +162,57 @@ Planet.prototype.update = function() {
 	    	// Move down if pressing down
 	        this.body.velocity.y += game.PLAYERSPEED;
 	    }
+	} else if (this.player == 3) {
+		// Run lightgravity
+		game.players.forEach(LightGravity, this, true);
+		game.debris.forEach(LightGravity, this, true);
+  	 	this.body.velocity.clamp(-200, 200);
 	}
 }
 
-function Gravity (planet) {	   
+function ChangeGravity () {
+	if (this.mass == this.MASS || this.mass == this.MASS * 2){
+		console.log('changing density');
+		if (this.mass > this.MASS) {
+			game.add.tween(this).to({mass: this.MASS}, 1000, 'Linear', true);
+		}
+	
+		else {
+			game.add.tween(this).to({mass: this.MASS * 3}, 1000, 'Linear', true);
+		}
+	}
+}
+
+function LightGravity (body) {
+    // Calculate gravity
+
+    // Make 4 placeholder points
+    var destBody = new Phaser.Point(); // Destination
+   	var thisBody = new Phaser.Point(); //This
+   	var gravityVector = new Phaser.Point(); // Direction to destination
+   	var velocityVector = new Phaser.Point(); // Velocity to add
+	
+	// Set points to be the x, y positions of sprites
+   	destBody.copyFrom(body);
+   	thisBody.copyFrom(this);
+
+   	// Use phaser point distance function
+   	var distance = thisBody.distance(destBody, true);
+   	if (distance < 75) return;
+
+   	// Create vector with direction towards destination
+   	Phaser.Point.subtract(destBody, thisBody, gravityVector);
+   	gravityVector.normalize();
+   		
+   	// Create a vector with magnitude greater than one 
+   	gravityVector.clone(velocityVector);
+   	velocityVector.setMagnitude(body.mass/distance);
+
+   	// Alter velocity based on gravity
+   	Phaser.Point.add(this.body.velocity, velocityVector, this.body.velocity);
+}
+
+function Gravity (planets) {	   
 	/*
 	This uses alot of Phaser.Point functionality, since 2d vectors are
 	just 2 values .Point has functions for them as well
@@ -158,28 +233,30 @@ function Gravity (planet) {
    	var thisBody = new Phaser.Point(); // The x and y of this
    	var gravityVector = new Phaser.Point(); // The direction that this need to move to reach the destination
    	var velocityVector = new Phaser.Point(); // The velocity to add to this
-	
-	// Set points to be the x, y positions of sprites
-   	destBody.copyFrom(planet);
-   	thisBody.copyFrom(this);
 
-   	// Phaser has a distance function for points, it gives a number that is used to determine how strong the gravity will be
-   	var distance = thisBody.distance(destBody, true);
-   	var massDivider = Math.min(Math.max((distance-spacing)/2, 1), planet.mass);
+   	for (var i=0; i < planets.length; i++){
+	   	// Set points to be the x, y positions of sprites
+	   	destBody.copyFrom(planets[i]);
+	   	thisBody.copyFrom(this);
 
-   	// Create vector with direction towards the body that the asteroid is being pulled to
-   	Phaser.Point.subtract(destBody, thisBody, gravityVector);
-   	gravityVector.normalize();
-   		
-   	// Create a vector with magnitude greater than one 
-   	gravityVector.clone(velocityVector);
-   	velocityVector.setMagnitude(planet.mass/massDivider);
-   	// console.log(velocityVector);
+	   	// Phaser has a distance function for points, it gives a number that is used to determine how strong the gravity will be
+	   	var distance = thisBody.distance(destBody, true);
+	   	var massDivider = Math.min(Math.max((distance-spacing)/2, 1), planets[i].mass);
 
-   	// Alter velocity based on gravity
-   	Phaser.Point.add(this.body.velocity, velocityVector, this.body.velocity);
-   	// .clamp keeps the value between the two numbers given, can be used to set a max speeds
-   	// This makes it so that the asteroid can pick up in speed if it is near a planet, and will slowly revert to its previous top speed if it gets farther away
+	   	// Create vector with direction towards the body that the asteroid is being pulled to
+	   	Phaser.Point.subtract(destBody, thisBody, gravityVector);
+	   	gravityVector.normalize();
+	   		
+	   	// Create a vector with magnitude greater than one 
+	   	gravityVector.clone(velocityVector);
+	   	velocityVector.setMagnitude(planets[i].mass/massDivider);
+	   	// console.log(velocityVector);
+
+	   	// Alter velocity based on gravity
+	   	Phaser.Point.add(this.body.velocity, velocityVector, this.body.velocity);
+	   	// .clamp keeps the value between the two numbers given, can be used to set a max speeds
+	   	// This makes it so that the asteroid can pick up in speed if it is near a planet, and will slowly revert to its previous top speed if it gets farther away
+   	}
    	if (distance < 125){
    		this.maxSpeed += 5;
    		// console.log(this.maxSpeed);

@@ -26,19 +26,23 @@ Play.prototype = {
 		game.asteroids = game.add.group();
 		// this.asteroids.enableBody = true;
 
+		// Create group for random space debris
+		game.debris = game.add.group();
+		game.debris.enableBody = true;
+
 		// Start music
 		
 		// Enable physics
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 			
 		// Make character 1
-		this.earth = new Planet(game, 700, 'earth', 1);
+		this.earth = new GBody(game, 700, 'earth', 1);
 
 		// Make character 2
-		this.mars = new Planet(game, 700, 'mars', 2);
+		this.mars = new GBody(game, 700, 'mars', 2);
 
 		// Make asteroid
-		this.asteroid = new Planet(game, 500, 'asteroid', 0);
+		this.asteroid = new GBody(game, 500, 'asteroid', 0);
 
 	    // Any starting velocity for the asteroid
 		// this.asteroid.body.velocity.y = -50;
@@ -84,17 +88,16 @@ Play.prototype = {
    		if (game.physics.arcade.collide(game.asteroids)){
    			console.log('asteroids bumped');
    		}
+   		if (game.physics.arcade.collide(game.debris, game.players)){
+   			console.log('bonk');
+   		}
+   		if (game.physics.arcade.collide(game.debris)){
+   			console.log('bink');
+   		}
 
    		// Player gets hit
-   		if (game.physics.arcade.collide(this.earth, game.asteroids)){
-   			console.log('earth bumped an asteroid');
-   			//this.musicPlayer.stop();
-   			game.state.start('GameOver', false, false, this.mars);
-   		}
-   		if (game.physics.arcade.collide(this.mars, game.asteroids)){
-   			console.log('mars bumped an asteroid');
-   			//this.musicPlayer.stop();
-   			game.state.start('GameOver', false, false, this.earth);
+   		if (game.physics.arcade.collide(game.players, game.asteroids, playerHit, null, this)){
+   			console.log("it's a mystery????");
    		}
 	},
 
@@ -110,4 +113,26 @@ Play.prototype = {
 		}
 	}
 }
+
+// Is run when player gets hit by an asteroid
+function playerHit (player, asteroid) {
+	console.log('earth bumped an asteroid');
+   	//this.musicPlayer.stop();
+   	DeathAnimation(player);
+   	DeathAnimation(asteroid);
+   	game.state.start('GameOver', false, false, player, [this.earth, this.mars]);
+}
+
+// Death animation for various objects
+function DeathAnimation (obj) {
+	var newKey = obj.key + "Piece";
+	for (var i = 1; i <= 5; i++){
+		console.log(newKey + i);
+		var debris = new GBody(game, 5, newKey + i, 3);
+		debris.x = obj.x + game.rnd.integerInRange(-20, 20);
+		debris.y = obj.y + game.rnd.integerInRange(-20, 20);
+	}
+	obj.kill();
+}
+
 game.state.add("Play", Play);

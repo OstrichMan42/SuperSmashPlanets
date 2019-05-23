@@ -2,7 +2,17 @@ Image folder:
 
 -AsteroidSprite
 -Background
+-EarthPiece1
+-EarthPiece2
+-EarthPiece3
+-EarthPiece4
+-EarthPiece5
 -EarthSprite
 -Instructions
 -MainMenu
+-MarsPiece1
+-MarsPiece2
+-MarsPiece3
+-MarsPiece4
+-MarsPiece5
 -MarsSprite

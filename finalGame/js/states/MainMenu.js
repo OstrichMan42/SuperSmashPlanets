@@ -14,7 +14,17 @@ MainMenu.prototype = {
 		game.load.image('spaceBackground', 'assets/img/Background.png');
 	    game.load.image('hole', 'assets/img/BlackHole.jpg');
 	    game.load.image('earth', 'assets/img/EarthSprite.png');
+	    game.load.image('earthPiece1', 'assets/img/EarthPiece1.png');
+	    game.load.image('earthPiece2', 'assets/img/EarthPiece2.png');
+	    game.load.image('earthPiece3', 'assets/img/EarthPiece3.png');
+	    game.load.image('earthPiece4', 'assets/img/EarthPiece4.png');
+	    game.load.image('earthPiece5', 'assets/img/EarthPiece5.png');
 	    game.load.image('mars', 'assets/img/MarsSprite.png');
+	    game.load.image('marsPiece1', 'assets/img/MarsPiece1.png');
+	    game.load.image('marsPiece2', 'assets/img/MarsPiece2.png');
+	    game.load.image('marsPiece3', 'assets/img/MarsPiece3.png');
+	    game.load.image('marsPiece4', 'assets/img/MarsPiece4.png');
+	    game.load.image('marsPiece5', 'assets/img/MarsPiece5.png');
 	    game.load.image('asteroid', 'assets/img/AsteroidSprite.png');
 
 	    // Load audio

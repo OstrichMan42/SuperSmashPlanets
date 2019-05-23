@@ -2,8 +2,14 @@
 
 var GameOver = function(game) {};
 GameOver.prototype = {
-	init: function(winner, score) {
-		this.winner = winner;
+	init: function(loser, players, score) {
+		console.log(players);
+		if (loser.player == 1) {
+			this.winner = players[1];
+		} else {
+			this.winner = players[0];
+		}
+		this.loser = loser;
 		this.score = score;
 	},
 	preload: function() {
@@ -11,10 +17,19 @@ GameOver.prototype = {
 	},
 	create: function() {
 		console.log("game over created");
+		game.camera.follow(this.winner, 0.1, 0.1);
+		this.winner.body.bounce.set(0);
 		var text = "Player " + this.winner.player + " wins!\nPress space to play again";
 		var gameOverText = game.add.text(game.world.centerX - 150, game.world.centerY - 50, text, { fontSize: '30px', fill: '#ffffff', align: 'center'});
 	},
 	update: function() {
+		if (game.physics.arcade.collide(game.debris)){
+   			console.log('bink');
+   		}
+   		if (game.physics.arcade.collide(game.debris, game.players)){
+   			console.log('bonk');
+   		}
+
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
 			game.state.start("Play", true, false, false);
 		} else if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){
