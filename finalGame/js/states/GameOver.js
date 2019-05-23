@@ -17,15 +17,13 @@ GameOver.prototype = {
 	},
 	create: function() {
 		console.log("game over created");
+		game.add.tween(game.time).to({slowMotion: 1}, 1000, Phaser.Easing.Cubic.Out, true);
 		game.camera.follow(this.winner, 0.1, 0.1);
 		this.winner.body.bounce.set(0);
 		var text = "Player " + this.winner.player + " wins!\nPress space to play again";
 		var gameOverText = game.add.text(game.world.centerX - 150, game.world.centerY - 50, text, { fontSize: '30px', fill: '#ffffff', align: 'center'});
 	},
 	update: function() {
-		if (game.physics.arcade.collide(game.debris)){
-   			console.log('bink');
-   		}
    		if (game.physics.arcade.collide(game.debris, game.players)){
    			console.log('bonk');
    		}

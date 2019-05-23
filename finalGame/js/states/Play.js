@@ -13,6 +13,9 @@ Play.prototype = {
 		if(game.musicPlayer == null) game.musicPlayer = game.add.audio('music');
 	},
 	create: function() {
+		// Realtime is best time
+		game.time.slowMotion = 1;
+
 		// Start music
 		if(!game.musicPlayer.isPlaying)game.musicPlayer.play("", 0, 1, true);
 
@@ -91,9 +94,9 @@ Play.prototype = {
    		if (game.physics.arcade.collide(game.debris, game.players)){
    			console.log('bonk');
    		}
-   		if (game.physics.arcade.collide(game.debris)){
-   			console.log('bink');
-   		}
+   		// if (game.physics.arcade.collide(game.debris)){
+   		// 	console.log('bink');
+   		// }
 
    		// Player gets hit
    		if (game.physics.arcade.collide(game.players, game.asteroids, playerHit, null, this)){
@@ -118,7 +121,9 @@ Play.prototype = {
 function playerHit (player, asteroid) {
 	console.log('earth bumped an asteroid');
    	//this.musicPlayer.stop();
+   	player.kill();
    	DeathAnimation(player);
+   	asteroid.kill();
    	DeathAnimation(asteroid);
    	game.state.start('GameOver', false, false, player, [this.earth, this.mars]);
 }
@@ -126,13 +131,16 @@ function playerHit (player, asteroid) {
 // Death animation for various objects
 function DeathAnimation (obj) {
 	var newKey = obj.key + "Piece";
+	game.time.slowMotion = 3;
+	// game.add.tween(game.time).to({slowMotion: 1}, 1000, Phaser.Easing.Cubic.Out, true);
 	for (var i = 1; i <= 5; i++){
 		console.log(newKey + i);
 		var debris = new GBody(game, 5, newKey + i, 3);
 		debris.x = obj.x + game.rnd.integerInRange(-20, 20);
 		debris.y = obj.y + game.rnd.integerInRange(-20, 20);
+		debris.body.velocity.setTo(obj.body.velocity.x + game.rnd.integerInRange(-10, 10), obj.body.velocity.y + game.rnd.integerInRange(-10, 10));
+		debris.body.angularVelocity = game.rnd.integerInRange(-55, 55);
 	}
-	obj.kill();
 }
 
 game.state.add("Play", Play);

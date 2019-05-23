@@ -37,11 +37,8 @@ var GBody = function(game, mass, character, player) {
 		this.gravKey = game.input.keyboard.addKey(Phaser.Keyboard.M);
     	this.gravKey.onDown.add(ChangeGravity, this);
 	} else if (player == 3){
-		var loser;
-		if (game.players.children[0].alive) loser = game.players.children[1];
-		else loser = game.players.children[0];
-		console.log(loser);
-		Phaser.Sprite.call(this, game, loser.x + game.rnd.integerInRange(-10, 10), loser.y + game.rnd.integerInRange(-10, 10), character);
+		// If debris then make a sprite at 0,0 it gets moved later
+		Phaser.Sprite.call(this, game, 0, 0, character);
 	}
 
 	// Make the sprite when function is called
@@ -66,7 +63,7 @@ var GBody = function(game, mass, character, player) {
 		this.scale.setTo(0.11);
 		// this one line makes a circular hitbox
 		this.body.setCircle(150);
-		this.body.bounce.set(2);
+		this.body.bounce.set(1);
 
 		// Add a timer to create a trail
 		// game.time.events.loop(250, Trail, this, game, this);
@@ -82,7 +79,7 @@ var GBody = function(game, mass, character, player) {
 		// this one line makes a circular hitbox
 		this.body.setCircle(300);
 		this.body.drag.set(200);
-		this.body.bounce.set(1.1);
+		this.body.bounce.set(0.7);
 		this.body.collideWorldBounds = true;
 		console.log(this);
 	} else if (player == 3){
@@ -92,9 +89,7 @@ var GBody = function(game, mass, character, player) {
 		this.scale.setTo(0.1);
 		this.body.setCircle(100);
 		this.body.bounce.set(0.7);
-		this.body.velocity.setTo(game.rnd.integerInRange(-25, 25), game.rnd.integerInRange(-25, 25));
 		this.body.drag.setTo(20, 20);
-		this.body.angularVelocity = game.rnd.integerInRange(-25, 25);
 	}
 }
 
@@ -166,7 +161,7 @@ GBody.prototype.update = function() {
 		// Run lightgravity
 		game.players.forEach(LightGravity, this, true);
 		game.debris.forEach(LightGravity, this, true);
-  	 	this.body.velocity.clamp(-200, 200);
+  	 	this.body.velocity.clamp(-300, 300);
 	}
 }
 
@@ -206,7 +201,7 @@ function LightGravity (body) {
    		
    	// Create a vector with magnitude greater than one 
    	gravityVector.clone(velocityVector);
-   	velocityVector.setMagnitude(body.mass/distance);
+   	velocityVector.setMagnitude(Math.min((body.mass/distance), 1));
 
    	// Alter velocity based on gravity
    	Phaser.Point.add(this.body.velocity, velocityVector, this.body.velocity);
