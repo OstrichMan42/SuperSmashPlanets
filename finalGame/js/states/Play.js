@@ -125,6 +125,7 @@ function playerHit (player, asteroid) {
    	DeathAnimation(player);
    	asteroid.kill();
    	DeathAnimation(asteroid);
+   	this.cameraCenter.destroy();
    	game.state.start('GameOver', false, false, player, [this.earth, this.mars]);
 }
 
@@ -134,13 +135,14 @@ function DeathAnimation (obj) {
 	game.time.slowMotion = 3;
 	// game.add.tween(game.time).to({slowMotion: 1}, 1000, Phaser.Easing.Cubic.Out, true);
 	for (var i = 1; i <= 5; i++){
-		console.log(newKey + i);
+		// console.log(newKey + i);
 		var debris = new GBody(game, 5, newKey + i, 3);
 		debris.x = obj.x + game.rnd.integerInRange(-20, 20);
 		debris.y = obj.y + game.rnd.integerInRange(-20, 20);
 		debris.body.velocity.setTo(obj.body.velocity.x + game.rnd.integerInRange(-10, 10), obj.body.velocity.y + game.rnd.integerInRange(-10, 10));
 		debris.body.angularVelocity = game.rnd.integerInRange(-55, 55);
 	}
+	obj.destroy();
 }
 
 game.state.add("Play", Play);

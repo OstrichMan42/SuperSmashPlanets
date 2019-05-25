@@ -17,7 +17,8 @@ GameOver.prototype = {
 	},
 	create: function() {
 		console.log("game over created");
-		game.add.tween(game.time).to({slowMotion: 1}, 1000, Phaser.Easing.Cubic.Out, true);
+		game.add.tween(game.time).to({slowMotion: 1}, 2000, Phaser.Easing.Cubic.Out, true);
+		//game.camera.focusOn(this.winner);
 		game.camera.follow(this.winner, 0.1, 0.1);
 		this.winner.body.bounce.set(0);
 		var text = "Player " + this.winner.player + " wins!\nPress space to play again";

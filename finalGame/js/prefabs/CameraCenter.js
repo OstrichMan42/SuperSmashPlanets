@@ -23,6 +23,7 @@ var cameraCenter = function(game, followObjects) {
 	game.add.existing(this);
 
 	// Add the final touch, change the lerp to your heart's desire
+	game.camera.focusOn(this);
 	game.camera.follow(this, 0.7, 0.7);
 
 	console.log("new camera center object");
