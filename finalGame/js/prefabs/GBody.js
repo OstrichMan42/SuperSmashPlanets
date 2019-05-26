@@ -68,8 +68,8 @@ var GBody = function(game, mass, character, player) {
 		// Add a timer to create a trail
 		// game.time.events.loop(250, Trail, this, game, this);
 
-		// Add a trail
-		// this.trail = new Trail(game, this, []);
+		// Add an array to hold trails
+		// this.trail = [];
 
 	} else if (player == 1 || player == 2){
 		game.players.add(this);
@@ -81,6 +81,10 @@ var GBody = function(game, mass, character, player) {
 		this.body.drag.set(200);
 		this.body.bounce.set(0.7);
 		this.body.collideWorldBounds = true;
+
+		// Add an array to hold trails
+		this.trail = [];
+
 		console.log(this);
 	} else if (player == 3){
 		game.debris.add(this);
@@ -113,8 +117,7 @@ GBody.prototype.update = function() {
 	   	}
 
 		// Make a trail
-		//this.trail.push(new Trail(game, this, this.trail));
-		//this.bringToTop();
+		// this.trail = new Trail(game, this);
 
 	// For player 1
 	} else if (this.player == 1) {

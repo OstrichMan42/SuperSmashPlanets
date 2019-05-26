@@ -2,13 +2,9 @@
 
 var GameOver = function(game) {};
 GameOver.prototype = {
-	init: function(loser, players, score) {
+	init: function(loser, winner, score) {
 		console.log(players);
-		if (loser.player == 1) {
-			this.winner = players[1];
-		} else {
-			this.winner = players[0];
-		}
+		this.winner = winner;
 		this.loser = loser;
 		this.score = score;
 	},

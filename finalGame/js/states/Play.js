@@ -126,7 +126,12 @@ function playerHit (player, asteroid) {
    	asteroid.kill();
    	DeathAnimation(asteroid);
    	this.cameraCenter.destroy();
-   	game.state.start('GameOver', false, false, player, [this.earth, this.mars]);
+   	if (player.player == 1) {
+			var winner = players[1];
+	} else {
+			var winner = players[0];
+	}
+   	game.state.start('GameOver', false, false, player, winner);
 }
 
 // Death animation for various objects
