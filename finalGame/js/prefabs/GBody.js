@@ -71,6 +71,23 @@ var GBody = function(game, mass, character, player) {
 		// Add an array to hold trails
 		// this.trail = [];
 
+		// Make trail
+		this.trail = game.add.emitter(game, this.x, this.y, 120);
+		console.log(this.trail);
+
+		// Fade out and shrink
+		// Code swooped from https://codepen.io/luisfedrizze/pen/reqeyQ?editors=0010
+		this.trail.gravity = 0;
+	    this.trail.maxParticleSpeed = 0;
+	    this.trail.minRotation = 0;
+	    this.trail.maxRotation = 0;
+		this.trail.autoScale = false;
+		this.trail.frequency = 250;
+	 	this.trail.setAlpha(1, 0, 500);
+		this.trail.setScale(this.scale.x, 0, this.scale.y, 0, 500, 'Linear');
+	 	this.trail.makeParticles(this.key);
+	    this.trail.start(false,3000,0);
+
 	} else if (player == 1 || player == 2){
 		game.players.add(this);
 		this.maxSpeed = 250;
@@ -81,9 +98,6 @@ var GBody = function(game, mass, character, player) {
 		this.body.drag.set(200);
 		this.body.bounce.set(0.7);
 		this.body.collideWorldBounds = true;
-
-		// Add an array to hold trails
-		this.trail = [];
 
 		console.log(this);
 	} else if (player == 3){
@@ -116,8 +130,9 @@ GBody.prototype.update = function() {
 	   		this.maxSpeed = 300
 	   	}
 
-		// Make a trail
-		// this.trail = new Trail(game, this);
+		// Make trail follow
+		this.trail.x = this.x;
+		this.trail.y = this.y;
 
 	// For player 1
 	} else if (this.player == 1) {
@@ -173,6 +188,11 @@ GBody.prototype.update = function() {
 		game.players.forEach(LightGravity, this, true);
   	 	this.body.velocity.clamp(-300, 300);
 	}
+}
+
+GBody.prototype.render = function() {
+	// make sure this is on top of the trail
+	if (this.player == 0) this.bringToTop();
 }
 
 function ChangeGravity () {

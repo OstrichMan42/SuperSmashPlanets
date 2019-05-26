@@ -28,10 +28,10 @@ var Trail = function(game, sprite) {
     this.minRotation = 0;
     this.maxRotation = 0;
 	this.autoScale = false;
- 	// this.setAlpha(1, 0, 1500);
-	// this.setScale(1,0,1,0,1500,'Linear');
- 	// this.makeParticles(sprite.key);
-    // this.start(false,3000,0);
+ 	this.setAlpha(1, 0, 1500);
+	this.setScale(1,0,1,0,1500,'Linear');
+ 	this.makeParticles(this.key);
+    this.start(false,3000,0);
 
 	// Make sure the sprite is on top of the trail
 	// sprite.bringToTop();

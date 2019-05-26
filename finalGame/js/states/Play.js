@@ -127,10 +127,12 @@ function playerHit (player, asteroid) {
    	DeathAnimation(asteroid);
    	this.cameraCenter.destroy();
    	if (player.player == 1) {
-			var winner = players[1];
+			var winner = this.mars;
 	} else {
-			var winner = players[0];
+			var winner = this.earth;
 	}
+	console.log(winner.player + ' w');
+	console.log(player.player + ' l');
    	game.state.start('GameOver', false, false, player, winner);
 }
 
@@ -146,6 +148,9 @@ function DeathAnimation (obj) {
 		debris.y = obj.y + game.rnd.integerInRange(-20, 20);
 		debris.body.velocity.setTo(obj.body.velocity.x + game.rnd.integerInRange(-10, 10), obj.body.velocity.y + game.rnd.integerInRange(-10, 10));
 		debris.body.angularVelocity = game.rnd.integerInRange(-55, 55);
+	}
+	if (obj.player == 0){
+		obj.trail.destroy();
 	}
 	obj.destroy();
 }

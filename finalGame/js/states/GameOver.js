@@ -3,7 +3,6 @@
 var GameOver = function(game) {};
 GameOver.prototype = {
 	init: function(loser, winner, score) {
-		console.log(players);
 		this.winner = winner;
 		this.loser = loser;
 		this.score = score;
