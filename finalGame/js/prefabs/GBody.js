@@ -20,7 +20,7 @@ var GBody = function(game, mass, character, player, rounds) {
 	} else if (player == 0){
 		var startX = game.world.centerX;
 	} else if (player == 3){
-		console.log("making debris");
+		// console.log("making debris");
 	} else {
 		console.error('error: invalid player key');
 	}
@@ -28,7 +28,7 @@ var GBody = function(game, mass, character, player, rounds) {
 	// Set necessary controls
 	if (player == 1) {
 		// Make gravity key
-		this.gravKey = game.input.keyboard.addKey(Phaser.Keyboard.C);
+		this.gravKey = game.input.keyboard.addKey(Phaser.Keyboard.F);
     	this.gravKey.onDown.add(ChangeGravity, this);
 	} else if (player == 2) {
 		// Make controller
@@ -69,8 +69,25 @@ var GBody = function(game, mass, character, player, rounds) {
 		// Add a timer to create a trail
 		// game.time.events.loop(250, Trail, this, game, this);
 
-		// Add a trail
-		// this.trail = new Trail(game, this, []);
+		// Add an array to hold trails
+		// this.trail = [];
+
+		// Make trail
+		this.trail = game.add.emitter(game, this.x, this.y, 120);
+		console.log(this.trail);
+
+		// Fade out and shrink
+		// Code swooped from https://codepen.io/luisfedrizze/pen/reqeyQ?editors=0010
+		this.trail.gravity = 0;
+	    this.trail.maxParticleSpeed = 0;
+	    this.trail.minRotation = 0;
+	    this.trail.maxRotation = 0;
+		this.trail.autoScale = false;
+		this.trail.frequency = 250;
+	 	this.trail.setAlpha(1, 0, 500);
+		this.trail.setScale(this.scale.x, 0, this.scale.y, 0, 500, 'Linear');
+	 	this.trail.makeParticles(this.key);
+	    this.trail.start(false,3000,0);
 
 	} else if (player == 1 || player == 2){
 		game.players.add(this);
@@ -82,14 +99,16 @@ var GBody = function(game, mass, character, player, rounds) {
 		this.body.drag.set(200);
 		this.body.bounce.set(0.7);
 		this.body.collideWorldBounds = true;
+
 		console.log(this);
 	} else if (player == 3){
 		game.debris.add(this);
 		game.physics.arcade.enable(this);
 
 		this.scale.setTo(0.1);
+		this.anchor.set(0.5);
 		this.body.setCircle(100);
-		this.body.bounce.set(0.7);
+		this.body.bounce.set(0.8);
 		this.body.drag.setTo(20, 20);
 	}
 }
@@ -105,9 +124,16 @@ GBody.prototype.update = function() {
 		//game.players.forEach(Gravity, this, true);
   	 	this.body.velocity.clamp(-this.maxSpeed, this.maxSpeed);
 
-		// Make a trail
-		//this.trail.push(new Trail(game, this, this.trail));
-		//this.bringToTop();
+  	 	// Check if the asteroid is out of the world, if it is then set it's max speed to something real small so it comes back quickly, also gives players time to react to something offscreen
+	   	if (!this.inWorld) {
+	   		this.maxSpeed = 10;
+	   	} else if (this.maxSpeed == 10) {
+	   		this.maxSpeed = 300
+	   	}
+
+		// Make trail follow
+		this.trail.x = this.x;
+		this.trail.y = this.y;
 
 	// For player 1
 	} else if (this.player == 1) {
@@ -161,20 +187,24 @@ GBody.prototype.update = function() {
 	} else if (this.player == 3) {
 		// Run lightgravity
 		game.players.forEach(LightGravity, this, true);
-		game.debris.forEach(LightGravity, this, true);
   	 	this.body.velocity.clamp(-300, 300);
 	}
 }
 
+GBody.prototype.render = function() {
+	// make sure this is on top of the trail
+	if (this.player == 0) this.bringToTop();
+}
+
 function ChangeGravity () {
-	if (this.mass == this.MASS || this.mass == this.MASS * 2){
+	if (this.mass == this.MASS || this.mass == this.MASS * 2.5){
 		console.log('changing density');
 		if (this.mass > this.MASS) {
-			game.add.tween(this).to({mass: this.MASS}, 1000, 'Linear', true);
+			this.mass = this.MASS;
 		}
 	
 		else {
-			game.add.tween(this).to({mass: this.MASS * 3}, 1000, 'Linear', true);
+			game.add.tween(this).to({mass: this.MASS * 2.5}, 1000, 'Linear', true);
 		}
 	}
 }
@@ -222,7 +252,7 @@ function Gravity (planets) {
     // Calculate gravity
 
     // Value to subtract from distance to make gravity stronger. Bigger number = stronger gravity
-    var spacing = 25;
+    var spacing = 20;
 
     // Make 4 placeholder points
     var destBody = new Phaser.Point(); // The x and y of the destination
@@ -237,7 +267,7 @@ function Gravity (planets) {
 
 	   	// Phaser has a distance function for points, it gives a number that is used to determine how strong the gravity will be
 	   	var distance = thisBody.distance(destBody, true);
-	   	var massDivider = Math.min(Math.max((distance-spacing)/2, 1), planets[i].mass);
+	   	var massDivider = Math.min(Math.max((distance-spacing)/2, 1), 500);
 
 	   	// Create vector with direction towards the body that the asteroid is being pulled to
 	   	Phaser.Point.subtract(destBody, thisBody, gravityVector);
@@ -258,12 +288,5 @@ function Gravity (planets) {
    		// console.log(this.maxSpeed);
    	} else if (this.maxSpeed > 300){
    		this.maxSpeed -= 2;
-   	}
-
-   	// Check if the asteroid is out of the world, if it is then set it's max speed to something real small so it comes back quickly, also gives players time to react to something offscreen
-   	if (!this.inWorld){
-   		this.maxSpeed = 10;
-   	} else if (this.maxSpeed == 10){
-   		this.maxSpeed = 250
    	}
 }

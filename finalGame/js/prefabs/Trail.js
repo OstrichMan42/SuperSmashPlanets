@@ -3,68 +3,52 @@
 // Mass is the mass of the object
 // character is the key of the sprite,
 // player is 1 for player 1, 2 for player 2, or 0 for an asteroid
-var Trail = function(game, sprite, trailArray) {
-	console.log('new trail');
+var Trail = function(game, sprite) {
+	//console.log('new trail');
 
 	// Save important arguments
 	this.sprite = sprite;
 	this.speed = sprite.body.velocity.getMagnitude();
-	this.trailArray = trailArray;
-
-	// Make the sprite when function is called
-	Phaser.Particles.Arcade.Emitter.call(this, game, sprite.x, sprite.y, 120);
-	this.minParticleSpeed = 0;
-	this.maxParticleSpeed = 0;
-	this.particleBringToTop = true;
-	this.makeParticles([sprite.key]);
-
-	this.start(false, 1500, 16);
-
-	// Make the sprite when function is called
-	// Phaser.Image.call(this, game, sprite.x, sprite.y, sprite.key);
-	// this.tint = 0x828282;
+	// Make it look nice
+	// this.tint = 0xffffff;
 	// this.scale = sprite.scale;
 	// this.anchor.set(0.5);
 
-	// Make the sprite when function is called
-	// trail = game.add.image(sprite.x, sprite.y, sprite.key);
-	// trail.tint = 0x828282;
-	// trail.scale = sprite.scale;
-	// trail.anchor.set(0.5);
-	
-	//trail.sendToBack();
-	// for some reason this line messes up player top speed
-
+	// Trail as a particle emitter
 	// Make it real
-	//game.add.existing(this);
+	// game.physics.arcade.enable(this);
+	Phaser.Particles.Arcade.Emitter.call(this, game, sprite.x, sprite.y, 120);
+	game.add.existing(this);
+	console.log(this);
 
-	// Fade out
-	//game.add.tween(this).to({ alpha: 0 }, 1500, "Linear", true);
+	// Fade out and shrink
+	// Code swooped from https://codepen.io/luisfedrizze/pen/reqeyQ?editors=0010
+	this.gravity = 0;
+    this.maxParticleSpeed = 0;
+    this.minRotation = 0;
+    this.maxRotation = 0;
+	this.autoScale = false;
+ 	this.setAlpha(1, 0, 1500);
+	this.setScale(1,0,1,0,1500,'Linear');
+ 	this.makeParticles(this.key);
+    this.start(false,3000,0);
 
-	// Shrink to death
-	//game.add.tween(this).to({ scale: 0 }, 1500, "Linear", true);
+	// Make sure the sprite is on top of the trail
+	// sprite.bringToTop();
 
-	// Die after half a second
-	// this.lifeTimer = game.time.create();
-	// this.lifeTimer.add(1500, function() { 
-	// 	console.log('killing trail');
-	// 	this.trailArray.shift();
-	// 	this.destroy(); });
+	// Trail as a particle emitter
+	// Phaser.Particles.Arcade.Emitter.call(this, game, sprite.x, sprite.y, 120);
+	// this.minParticleSpeed = 0;
+	// this.maxParticleSpeed = 0;
+	// this.particleBringToTop = true;
+	// this.makeParticles([sprite.key]);
 
-	// Add some motion
-	
-	
-	// console.log("new trail");
+	// this.start(false, 1500, 16);
 }
 
 Trail.prototype = Object.create(Phaser.Image.prototype);
 Trail.prototype.constructor = Trail;
 
 Trail.prototype.update = function() {
-	this.x = this.sprite.x;
-	this.y = this.sprite.y;
-}
-
-function fadeOut (child) {
-
+	
 }

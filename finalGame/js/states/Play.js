@@ -22,7 +22,7 @@ Play.prototype = {
 
 		// Add background
 		var bg = game.add.sprite(0, 0, 'spaceBackground');
-		bg.scale.setTo(1.5, 3);
+		bg.scale.setTo(0.5, 1);
 
 		// Create groups for players and asteroids
 		game.players = game.add.group();
@@ -126,8 +126,16 @@ function playerHit (player, asteroid) {
    	DeathAnimation(player);
    	asteroid.kill();
    	DeathAnimation(asteroid);
-   	console.log("right before gameover jump");
-   	game.state.start('GameOver', false, false, player, [this.earth, this.mars], this.score);
+   	this.cameraCenter.destroy();
+   	if (player.player == 1) {
+			var winner = this.mars;
+	} else {
+			var winner = this.earth;
+	}
+	console.log(winner.player + ' w');
+	console.log(player.player + ' l');
+	console.log("right before gameover jump");
+   	game.state.start('GameOver', false, false, player, winner);
 }
 
 // Death animation for various objects
@@ -136,13 +144,17 @@ function DeathAnimation (obj) {
 	game.time.slowMotion = 3;
 	// game.add.tween(game.time).to({slowMotion: 1}, 1000, Phaser.Easing.Cubic.Out, true);
 	for (var i = 1; i <= 5; i++){
-		console.log(newKey + i);
+		// console.log(newKey + i);
 		var debris = new GBody(game, 5, newKey + i, 3);
 		debris.x = obj.x + game.rnd.integerInRange(-20, 20);
 		debris.y = obj.y + game.rnd.integerInRange(-20, 20);
 		debris.body.velocity.setTo(obj.body.velocity.x + game.rnd.integerInRange(-10, 10), obj.body.velocity.y + game.rnd.integerInRange(-10, 10));
 		debris.body.angularVelocity = game.rnd.integerInRange(-55, 55);
 	}
+	if (obj.player == 0){
+		obj.trail.destroy();
+	}
+	obj.destroy();
 }
 
 game.state.add("Play", Play);

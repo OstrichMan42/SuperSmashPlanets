@@ -2,16 +2,11 @@
 
 var GameOver = function(game) {};
 GameOver.prototype = {
-	init: function(loser, players, score) {
-		console.log(players);
-		if (loser.player == 1) {
-			this.winner = players[1];
-		} else {
-			this.winner = players[0];
-		}
 
-		this.score = score;
+	init: function(loser, winner, score) {
+		this.winner = winner;
 		this.loser = loser;
+		this.score = score;
 
 		if (this.winner.player == 1)
 		{
@@ -27,11 +22,11 @@ GameOver.prototype = {
 	},
 	create: function() {
 		console.log("game over created");
-		game.add.tween(game.time).to({slowMotion: 1}, 1000, Phaser.Easing.Cubic.Out, true);
+		game.add.tween(game.time).to({slowMotion: 1}, 2000, Phaser.Easing.Cubic.Out, true);
+		//game.camera.focusOn(this.winner);
 		game.camera.follow(this.winner, 0.1, 0.1);
 		this.winner.body.bounce.set(0);
-	
-		console.log("Round #:" + this.rounds.length);
+		
 		var text = "Player " + this.winner.player + " wins!\nPress space to play again";
 		var gameOverText = game.add.text(game.world.centerX - 150, game.world.centerY - 50, text, { fontSize: '30px', fill: '#ffffff', align: 'center'});
 },
