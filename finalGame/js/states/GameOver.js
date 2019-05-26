@@ -2,7 +2,7 @@
 
 var GameOver = function(game) {};
 GameOver.prototype = {
-	init: function(loser, players, rounds) {
+	init: function(loser, players, score) {
 		console.log(players);
 		if (loser.player == 1) {
 			this.winner = players[1];
@@ -10,17 +10,16 @@ GameOver.prototype = {
 			this.winner = players[0];
 		}
 
-		this.rounds = rounds;
+		this.score = score;
 		this.loser = loser;
-		//this.score = score;
 
-		if (this.winner == players[1])
+		if (this.winner.player == 1)
 		{
-			this.rounds.push("earth"); 
+			this.score.push("earth"); 
 		}
-		else if (this.winner == players[0])
+		else if (this.winner == 2)
 		{
-			this.rounds.push("mars");
+			this.score.push("mars");
 		}
 	},
 	preload: function() {

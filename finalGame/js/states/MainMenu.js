@@ -44,7 +44,7 @@ MainMenu.prototype = {
 			console.log("spacebar pressed");
 			game.state.start("Instructions");
 		} else if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){
-			game.state.start("Play", true, false, true, []);
+			game.state.start("Play", true, false, true, [0, 0, 2]);
 		}
 	}
 }
