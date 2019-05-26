@@ -7,7 +7,7 @@ Instructions.prototype = {
 	},
 	update: function() {
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
-			game.state.start("Play");
+			game.state.start("Play", true, false, false, [2, 0, 0]);
 		}
 	}
 }

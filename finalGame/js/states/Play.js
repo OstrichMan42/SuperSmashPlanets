@@ -135,7 +135,7 @@ function playerHit (player, asteroid) {
 	console.log(winner.player + ' w');
 	console.log(player.player + ' l');
 	console.log("right before gameover jump");
-   	game.state.start('GameOver', false, false, player, winner);
+   	game.state.start('GameOver', false, false, player, winner, this.score);
 }
 
 // Death animation for various objects

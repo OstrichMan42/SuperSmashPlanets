@@ -13,6 +13,7 @@ GameOver.prototype = {
 		} else if (this.winner.player == 2) {
 			this.score[2] += 1;
 		}
+		console.log(score);
 	},
 	preload: function() {
 		console.log("loaded game over");
@@ -33,9 +34,9 @@ GameOver.prototype = {
    		}
 
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-			game.state.start("Play", true, false, false);
+			game.state.start("Play", true, false, false, this.score);
 		} else if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)) {
-			game.state.start("Play", true, false, true);
+			game.state.start("Play", true, false, true, this.score);
 		}
 	}
 }
