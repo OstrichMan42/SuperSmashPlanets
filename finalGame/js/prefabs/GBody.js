@@ -3,11 +3,12 @@
 // Mass is the mass of the object
 // character is the key of the sprite,
 // player is 1 for player 1, 2 for player 2, or 0 for an asteroid
-var GBody = function(game, mass, character, player) {
+var GBody = function(game, mass, character, player, rounds) {
 	// Save important arguments
 	this.player = player;
 	this.mass = mass;
 	this.MASS = mass; // This value does not change past here
+	this.rounds = rounds; 
 	//this.trail = [];
 	var PLAYER_STARTING_DISTANCE = 300;
 

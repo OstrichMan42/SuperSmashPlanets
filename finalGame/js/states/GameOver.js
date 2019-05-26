@@ -2,15 +2,26 @@
 
 var GameOver = function(game) {};
 GameOver.prototype = {
-	init: function(loser, players, score) {
+	init: function(loser, players, rounds) {
 		console.log(players);
 		if (loser.player == 1) {
 			this.winner = players[1];
 		} else {
 			this.winner = players[0];
 		}
+
+		this.rounds = rounds;
 		this.loser = loser;
-		this.score = score;
+		//this.score = score;
+
+		if (this.winner == players[1])
+		{
+			this.rounds.push("earth"); 
+		}
+		else if (this.winner == players[0])
+		{
+			this.rounds.push("mars");
+		}
 	},
 	preload: function() {
 		console.log("loaded game over");
@@ -20,9 +31,11 @@ GameOver.prototype = {
 		game.add.tween(game.time).to({slowMotion: 1}, 1000, Phaser.Easing.Cubic.Out, true);
 		game.camera.follow(this.winner, 0.1, 0.1);
 		this.winner.body.bounce.set(0);
+	
+		console.log("Round #:" + this.rounds.length);
 		var text = "Player " + this.winner.player + " wins!\nPress space to play again";
 		var gameOverText = game.add.text(game.world.centerX - 150, game.world.centerY - 50, text, { fontSize: '30px', fill: '#ffffff', align: 'center'});
-	},
+},
 	update: function() {
    		if (game.physics.arcade.collide(game.debris, game.players)){
    			console.log('bonk');

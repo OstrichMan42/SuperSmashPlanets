@@ -3,11 +3,12 @@
 var Play = function(game) {};
 
 Play.prototype = {
-	init: function(debug){
+	init: function(debug, rounds){
 		// Necessary variables
 		this.time;
 		this.debug = debug;
 		game.PLAYERSPEED = 25;
+		this.rounds = rounds;
 
 		// Make audio players
 		if(game.musicPlayer == null) game.musicPlayer = game.add.audio('music');
@@ -21,7 +22,7 @@ Play.prototype = {
 
 		// Add background
 		var bg = game.add.sprite(0, 0, 'spaceBackground');
-		bg.scale.setTo(0.5, 1);
+		bg.scale.setTo(1.5, 3);
 
 		// Create groups for players and asteroids
 		game.players = game.add.group();
@@ -125,7 +126,8 @@ function playerHit (player, asteroid) {
    	DeathAnimation(player);
    	asteroid.kill();
    	DeathAnimation(asteroid);
-   	game.state.start('GameOver', false, false, player, [this.earth, this.mars]);
+   	console.log("right before gameover jump");
+   	game.state.start('GameOver', false, false, player, [this.earth, this.mars], this.rounds);
 }
 
 // Death animation for various objects
