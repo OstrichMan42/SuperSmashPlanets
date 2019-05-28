@@ -119,23 +119,27 @@ Play.prototype = {
 }
 
 // Is run when player gets hit by an asteroid
-function playerHit (player, asteroid) {
+function playerHit (loser, asteroid) {
 	console.log('earth bumped an asteroid');
    	//this.musicPlayer.stop();
-   	player.kill();
-   	DeathAnimation(player);
-   	asteroid.kill();
-   	DeathAnimation(asteroid);
-   	this.cameraCenter.destroy();
-   	if (player.player == 1) {
+   	if (loser.player == 1) {
 			var winner = this.mars;
 	} else {
 			var winner = this.earth;
 	}
-	console.log(winner.player + ' w');
-	console.log(player.player + ' l');
+	if (winner.player == 1) {
+		this.score[1] += 1;
+	} else if (winner.player == 2) {
+		this.score[2] += 1;
+	}
+   	loser.kill();
+   	DeathAnimation(loser);
+   	asteroid.kill();
+   	DeathAnimation(asteroid);
+   	this.cameraCenter.destroy();
+   	
 	console.log("right before gameover jump");
-   	game.state.start('GameOver', false, false, player, winner, this.score);
+   	game.state.start('GameOver', false, false, loser, winner, this.score);
 }
 
 // Death animation for various objects

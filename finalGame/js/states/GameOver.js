@@ -8,11 +8,6 @@ GameOver.prototype = {
 		this.loser = loser;
 		this.score = score;
 
-		if (this.winner.player == 1) {
-			this.score[1] += 1;
-		} else if (this.winner.player == 2) {
-			this.score[2] += 1;
-		}
 		console.log(score);
 	},
 	preload: function() {
@@ -20,6 +15,7 @@ GameOver.prototype = {
 	},
 	create: function() {
 		console.log("game over created");
+		// Slow motion effect for coolness
 		game.add.tween(game.time).to({slowMotion: 1}, 2000, Phaser.Easing.Cubic.Out, true);
 		//game.camera.focusOn(this.winner);
 		game.camera.follow(this.winner, 0.1, 0.1);
