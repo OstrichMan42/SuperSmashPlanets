@@ -93,7 +93,7 @@ var GBody = function(game, mass, character, player, rounds) {
 		game.players.add(this);
 		this.maxSpeed = 250;
 		this.anchor.set(0.5);
-		this.scale.setTo(0.12);
+		this.scale.setTo(0.1);
 		// this one line makes a circular hitbox
 		this.body.setCircle(300);
 		this.body.drag.set(200);
