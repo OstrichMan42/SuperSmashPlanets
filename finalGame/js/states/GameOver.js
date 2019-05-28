@@ -25,7 +25,13 @@ GameOver.prototype = {
 		game.camera.follow(this.winner, 0.1, 0.1);
 		this.winner.body.bounce.set(0);
 
-		var text = "Player " + this.winner.player + " wins!\nPress space to play again";
+		if (this.score[1] >= this.score[0]) {
+			var text = "Player " + this.winner.player + " wins!\nPress space to play again";
+		} else if (this.score[2] >= this.score[0]) {
+			var text = "Player " + this.winner.player + " wins!\nPress space to play again";
+		} else {
+			var text = "Player " + this.winner.player + " won this round\nPress space to start the next round";
+		}
 		var gameOverText = game.add.text(game.world.centerX - 150, game.world.centerY - 50, text, { fontSize: '30px', fill: '#ffffff', align: 'center'});
 	},
 	update: function() {
