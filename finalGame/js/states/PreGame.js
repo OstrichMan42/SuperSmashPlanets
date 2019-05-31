@@ -15,7 +15,7 @@ PreGame.prototype = {
 	update: function() {
 		if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){
 			game.chillMusicPlayer.stop();
-			game.state.start("Play", true, false, true, [2, 0, 0], 'spaceBackground');
+			game.state.start("Play", true, false, false, [2, 0, 0], 'spaceBackground');
 		}
 		if(game.input.keyboard.isDown(Phaser.Keyboard.ESC)) {
 			game.state.start("MainMenu", true, false, true);

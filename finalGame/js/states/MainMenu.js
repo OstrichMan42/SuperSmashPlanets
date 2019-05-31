@@ -16,7 +16,6 @@ MainMenu.prototype = {
 			// Images
 			game.load.image('title', 'assets/img/TitleCard.png');
 			game.load.image('spaceBackground', 'assets/img/Background.png');
-		    game.load.image('hole', 'assets/img/BlackHole.jpg');
 		    game.load.image('earth', 'assets/img/EarthSprite.png');
 		    game.load.image('earthPiece1', 'assets/img/EarthPiece1.png');
 		    game.load.image('earthPiece2', 'assets/img/EarthPiece2.png');

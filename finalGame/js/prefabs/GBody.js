@@ -78,16 +78,18 @@ var GBody = function(game, mass, character, player, rounds) {
 
 		// Fade out and shrink
 		// Code swooped from https://codepen.io/luisfedrizze/pen/reqeyQ?editors=0010
-		this.trail.gravity = 0;
+		//this.trail.gravity = 0;
 	    this.trail.maxParticleSpeed = 0;
 	    this.trail.minRotation = 0;
 	    this.trail.maxRotation = 0;
 		this.trail.autoScale = false;
-		this.trail.frequency = 250;
-	 	this.trail.setAlpha(1, 0, 500);
-		this.trail.setScale(this.scale.x, 0, this.scale.y, 0, 500, 'Linear');
+		// this.trail.frequency = 250;
+	 	this.trail.setAlpha(1, 0, 500, Phaser.Easing.Quadratic.Out);
+		this.trail.setScale(this.scale.x, 0, this.scale.y, 0, 500, Phaser.Easing.Quadratic.Out);
 	 	this.trail.makeParticles(this.key);
-	    this.trail.start(false,3000,0);
+	    // this.trail.start(false,3000,0);
+	    // using flow
+	    this.trail.flow(500, 5, 1, -1, true);
 
 	} else if (player == 1 || player == 2){
 		game.players.add(this);
