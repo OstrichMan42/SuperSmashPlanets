@@ -1,6 +1,11 @@
 Image folder:
 
 -AsteroidSprite
+-AsteroidPiece1
+-AsteroidPiece2
+-AsteroidPiece3
+-AsteroidPiece4
+-AsteroidPiece5
 -Background
 -EarthPiece1
 -EarthPiece2
@@ -8,11 +13,14 @@ Image folder:
 -EarthPiece4
 -EarthPiece5
 -EarthSprite
--Instructions
--MainMenu
+-TitleCard
 -MarsPiece1
 -MarsPiece2
 -MarsPiece3
 -MarsPiece4
 -MarsPiece5
 -MarsSprite
+-Space_NotPressed
+-Space_Pressed
+-T_NotPressed
+-T_Pressed

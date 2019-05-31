@@ -3,10 +3,11 @@
 var GameOver = function(game) {};
 GameOver.prototype = {
 
-	init: function(loser, winner, score) {
+	init: function(loser, winner, score, bg) {
 		this.winner = winner;
 		this.loser = loser;
 		this.score = score;
+		this.bg = bg;
 
 		console.log(score);
 	},
@@ -36,14 +37,15 @@ GameOver.prototype = {
    		}
 
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-			game.state.start("Play", true, false, false, this.score);
+			game.state.start("Play", true, false, false, this.score, this.bg);
 		} else if(game.input.keyboard.isDown(Phaser.Keyboard.T)) {
 			game.state.start("Tutorial", true, false, true, this.score);
 		} else if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)) {
-			game.state.start("Play", true, false, true, this.score);
+			game.state.start("Play", true, false, true, this.score, this.bg);
 		}
 
 		if(game.input.keyboard.isDown(Phaser.Keyboard.ESC)) {
+			game.musicPlayer.stop();
 			game.state.start("MainMenu", true, false, true);
 		}
 	}

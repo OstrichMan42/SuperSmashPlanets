@@ -3,25 +3,23 @@
 var Play = function(game) {};
 
 Play.prototype = {
-	init: function(debug, score){
+	init: function(debug, score, bg){
 		// Necessary variables
+		this.bg = bg;
+		console.log(bg);
 		this.time;
 		this.debug = debug;
 		game.PLAYERSPEED = 25;
 		this.score = score;
-
-		// Make audio players
-		if(game.musicPlayer == null) game.musicPlayer = game.add.audio('music');
 	},
 	create: function() {
 		// Realtime is best time
 		game.time.slowMotion = 1;
 
 		// Start music
-		if(!game.musicPlayer.isPlaying)game.musicPlayer.play("", 0, 1, true);
+		if(!game.musicPlayer.isPlaying) game.musicPlayer.play("", 0, 1, true);
 
-		// Add background
-		var bg = game.add.sprite(0, 0, 'spaceBackground');
+		var bg = game.add.sprite(0, 0, this.bg);
 		bg.scale.setTo(0.5, 1);
 
 		// Create groups for players and asteroids
@@ -105,6 +103,7 @@ Play.prototype = {
    		}
 
    		if(game.input.keyboard.isDown(Phaser.Keyboard.ESC)) {
+   			game.musicPlayer.stop();
 			game.state.start("MainMenu", true, false, true);
 		}
 	},
@@ -143,7 +142,7 @@ function playerHit (loser, asteroid) {
    	this.cameraCenter.destroy();
    	
 	console.log("right before gameover jump");
-   	game.state.start('GameOver', false, false, loser, winner, this.score);
+   	game.state.start('GameOver', false, false, loser, winner, this.score, this.bg);
 }
 
 // Death animation for various objects

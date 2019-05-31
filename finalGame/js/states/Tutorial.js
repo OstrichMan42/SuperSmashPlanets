@@ -7,7 +7,10 @@ Tutorial.prototype = {
 	},
 	update: function() {
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
-			game.state.start("Play", true, false, false, [2, 0, 0]);
+			game.state.start("MainMenu", true, false, true);
+		}
+		if(game.input.keyboard.isDown(Phaser.Keyboard.ESC)) {
+			game.state.start("MainMenu", true, false, true);
 		}
 	}
 }
