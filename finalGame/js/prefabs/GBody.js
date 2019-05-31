@@ -134,6 +134,7 @@ GBody.prototype.update = function() {
 		// Make trail follow
 		this.trail.x = this.x;
 		this.trail.y = this.y;
+		this.bringToTop();
 
 	// For player 1
 	} else if (this.player == 1) {

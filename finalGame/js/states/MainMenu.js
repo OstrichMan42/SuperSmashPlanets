@@ -9,7 +9,7 @@ MainMenu.prototype = {
 
 		// Preload assets
 		// Images
-		game.load.image('menu', 'assets/img/MainMenu.png');
+		game.load.image('title', 'assets/img/Title.png');
 	   	game.load.image('instructions', 'assets/img/Instructions.png');
 		game.load.image('spaceBackground', 'assets/img/Background.png');
 	    game.load.image('hole', 'assets/img/BlackHole.jpg');
@@ -26,6 +26,8 @@ MainMenu.prototype = {
 	    game.load.image('marsPiece4', 'assets/img/MarsPiece4.png');
 	    game.load.image('marsPiece5', 'assets/img/MarsPiece5.png');
 	    game.load.image('asteroid', 'assets/img/AsteroidSprite.png');
+	    game.load.image('playButton', 'assets/img/PlayButton.png');
+	    game.load.image('tutorialButton', 'assets/img/TutorialButton.png');
 
 	    // Load audio
 	    game.load.audio('music', 'assets/audio/SpaceBattle.wav');
@@ -33,17 +35,29 @@ MainMenu.prototype = {
 	    console.log("loaded assets");
 	},
 	create: function() {
-		// Space is big. Really big. You just won't believe how vastly, hugely, mind-bogglingly big it is. I mean, you may think it's a long way down the road to the chemist, but that's just peanuts to space.
-		game.world.setBounds(0, 0, 1500, 1500);
+		// show entire game display while maintaining aspect ratio
+		game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
-		var Menu = game.add.sprite(0, 0, 'menu');
+		// Space is big. Really big. You just won't believe how vastly, hugely, mind-bogglingly big it is. I mean, you may think it's a long way down the road to the chemist, but that's just peanuts to space.
+		// game.world.setBounds(0, 0, 850, 850);
+
+		var title = game.add.sprite(0, 0, 'title');
+		title.inputEnabled = true;
+
+		var play = game.add.sprite(game.world.centerX - 200, 500, 'playButton');
+		play.inputEnabled = true;
+
+		var tutorial = game.add.sprite(game.world.centerX + 200, 500, 'tutorialButton');
+		tutorial.inputEnabled = true;
+		
 		console.log("main menu created");
 	},
 	update: function() {
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
 			console.log("spacebar pressed");
 			game.state.start("Instructions");
-		} else if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){
+		}
+		if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){
 			game.state.start("Play", true, false, true, [2, 0, 0]);
 		}
 	}
