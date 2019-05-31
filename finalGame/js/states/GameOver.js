@@ -37,8 +37,14 @@ GameOver.prototype = {
 
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
 			game.state.start("Play", true, false, false, this.score);
+		} else if(game.input.keyboard.isDown(Phaser.Keyboard.T)) {
+			game.state.start("Tutorial", true, false, true, this.score);
 		} else if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)) {
 			game.state.start("Play", true, false, true, this.score);
+		}
+
+		if(game.input.keyboard.isDown(Phaser.Keyboard.ESC)) {
+			game.state.start("MainMenu", true, false, true);
 		}
 	}
 }

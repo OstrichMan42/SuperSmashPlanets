@@ -1,9 +1,9 @@
 "use strict";
 
-var Instructions = function(game) {};
-Instructions.prototype = {
+var Tutorial = function(game) {};
+Tutorial.prototype = {
 	create: function() {
-		var Instructions = this.add.sprite(0, 0, 'instructions');
+		var Tutorial = this.add.sprite(0, 0, 'instructions');
 	},
 	update: function() {
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
@@ -12,4 +12,4 @@ Instructions.prototype = {
 	}
 }
 
-game.state.add("Instructions", Instructions);
+game.state.add("Tutorial", Tutorial);

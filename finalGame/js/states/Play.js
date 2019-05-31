@@ -103,6 +103,10 @@ Play.prototype = {
    		if (game.physics.arcade.collide(game.players, game.asteroids, playerHit, null, this)){
    			console.log("it's a mystery????");
    		}
+
+   		if(game.input.keyboard.isDown(Phaser.Keyboard.ESC)) {
+			game.state.start("MainMenu", true, false, true);
+		}
 	},
 
 	render: function() {
