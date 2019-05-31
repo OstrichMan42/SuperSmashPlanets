@@ -55,8 +55,9 @@ MainMenu.prototype = {
 		console.log(game);
 
 		// if(!game.chillMusicPlayer.isPlaying) game.chillMusicPlayer.play("", 0, 1, true);
-		game.musicPlayer.fadeOut(1000);
-		game.chillMusicPlayer.play("", 0, 1, true);
+		game.chillMusicPlayer.play("", 0, 0.5, true);
+		game.musicPlayer.stop();
+		game.chillMusicPlayer.fadeTo(1500, 1);
 
 		// show entire game display while maintaining aspect ratio
 		game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
