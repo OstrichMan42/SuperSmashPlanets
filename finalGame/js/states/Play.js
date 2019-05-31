@@ -6,7 +6,8 @@ Play.prototype = {
 	init: function(debug, score, bg){
 		// Necessary variables
 		this.bg = bg;
-		console.log(bg);
+		//console.log(bg);
+		
 		this.time;
 		this.debug = debug;
 		game.PLAYERSPEED = 25;
@@ -17,7 +18,15 @@ Play.prototype = {
 		game.time.slowMotion = 1;
 
 		// Start music
-		if(!game.musicPlayer.isPlaying) game.musicPlayer.play("", 0, 1, true);
+		console.log(game.musicPlayer.isPlaying);
+		if(!game.musicPlayer.isPlaying) {
+			game.musicPlayer.fadeIn(3000, true);
+			game.chillMusicPlayer.play("", 0, 0, true);
+		}
+		else {
+			game.musicPlayer.fadeTo(3000, 1);
+			game.chillMusicPlayer.fadeTo(1500, 0.01);
+		}
 
 		var bg = game.add.sprite(0, 0, this.bg);
 		bg.scale.setTo(0.5, 1);
@@ -60,7 +69,7 @@ Play.prototype = {
 		// An empty sprite that I create just because the camera needs a sprite to follow
 		// this.cameraCenter = game.add.sprite(0, 0, '');
 		// game.camera.follow(this.cameraCenter, 0.7, 0.7);
-		this.cameraCenter = new cameraCenter(game, [this.earth, this.mars]);
+		//this.cameraCenter = new cameraCenter(game, [this.earth, this.mars]);
 
 		game.stage.backgroundColor = "#000000";
 
@@ -78,7 +87,7 @@ Play.prototype = {
 		this.p1Point.copyFrom(this.earth);
 		this.p2Point.copyFrom(this.mars);
 		this.astPoint.copyFrom(this.asteroid);
-		this.camPoint.copyFrom(this.cameraCenter);
+		//this.camPoint.copyFrom(this.cameraCenter);
 
 		// Get camera center from earth position and mars
 		// Phaser.Point.interpolate(this.p1Point, this.p2Point, 0.5).copyTo(this.cameraCenter);
@@ -113,7 +122,7 @@ Play.prototype = {
 			game.debug.geom(this.p1Point, '#1546c1');
 			game.debug.geom(this.p2Point, '#c13715');
 			game.debug.geom(this.astPoint, '#562d13');
-			game.debug.geom(this.camPoint, '#ffffff');
+			//game.debug.geom(this.camPoint, '#ffffff');
 			game.debug.body(this.earth);
 			game.debug.body(this.mars);
 			game.debug.body(this.asteroid);
@@ -139,7 +148,7 @@ function playerHit (loser, asteroid) {
    	DeathAnimation(loser);
    	asteroid.kill();
    	DeathAnimation(asteroid);
-   	this.cameraCenter.destroy();
+   	//this.cameraCenter.destroy();
    	
 	console.log("right before gameover jump");
    	game.state.start('GameOver', false, false, loser, winner, this.score, this.bg);

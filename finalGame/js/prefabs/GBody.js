@@ -74,7 +74,6 @@ var GBody = function(game, mass, character, player, rounds) {
 
 		// Make trail
 		this.trail = game.add.emitter(game, this.x, this.y, 120);
-		console.log(this.trail);
 
 		// Fade out and shrink
 		// Code swooped from https://codepen.io/luisfedrizze/pen/reqeyQ?editors=0010
@@ -102,7 +101,7 @@ var GBody = function(game, mass, character, player, rounds) {
 		this.body.bounce.set(0.7);
 		this.body.collideWorldBounds = true;
 
-		console.log(this);
+		//console.log(this);
 	} else if (player == 3){
 		game.debris.add(this);
 		game.physics.arcade.enable(this);

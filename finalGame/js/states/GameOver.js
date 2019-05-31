@@ -13,6 +13,11 @@ GameOver.prototype = {
 	},
 	preload: function() {
 		console.log("loaded game over");
+
+		//game.musicPlayer.fadeTo(1000, 1);
+		game.musicPlayer.fadeTo(1000, 0.01);
+		game.chillMusicPlayer.fadeTo(1000, 1);
+		//game.chillMusicPlayer.fadeTo(1000, 0);
 	},
 	create: function() {
 		console.log("game over created");
