@@ -9,9 +9,13 @@ Play.prototype = {
 		this.debug = debug;
 		game.PLAYERSPEED = 25;
 		this.score = score;
+		this.woosh;
 
 		// Make audio players
 		if(game.musicPlayer == null) game.musicPlayer = game.add.audio('music');
+		if(game.woosh == null) game.woosh = game.add.audio('woosh');
+		if(game.crash == null) game.crash = game.add.audio('crash');
+		if(game.boing == null) game.boing = game.add.audio('boing');
 	},
 	create: function() {
 		// Realtime is best time
@@ -88,12 +92,14 @@ Play.prototype = {
    		// Handle Collisions
    		if (game.physics.arcade.collide(game.players)){
    			console.log('players bumped');
+   			game.boing.play("", 0, 1, false);
    		}
    		if (game.physics.arcade.collide(game.asteroids)){
    			console.log('asteroids bumped');
    		}
    		if (game.physics.arcade.collide(game.debris, game.players)){
    			console.log('bonk');
+   			game.boing.play("", 0, 1, false);
    		}
    		// if (game.physics.arcade.collide(game.debris)){
    		// 	console.log('bink');
@@ -102,6 +108,8 @@ Play.prototype = {
    		// Player gets hit
    		if (game.physics.arcade.collide(game.players, game.asteroids, playerHit, null, this)){
    			console.log("it's a mystery????");
+
+   			game.crash.play("", 0, 1, false);
    		}
 	},
 
