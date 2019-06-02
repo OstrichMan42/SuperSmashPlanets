@@ -16,18 +16,18 @@ MainMenu.prototype = {
 			// Images
 			game.load.image('title', 'assets/img/TitleCard.png');
 			game.load.image('spaceBackground', 'assets/img/Background.png');
-		    game.load.image('earth', 'assets/img/EarthSprite.png');
-		    game.load.image('earthPiece1', 'assets/img/EarthPiece1.png');
-		    game.load.image('earthPiece2', 'assets/img/EarthPiece2.png');
-		    game.load.image('earthPiece3', 'assets/img/EarthPiece3.png');
-		    game.load.image('earthPiece4', 'assets/img/EarthPiece4.png');
-		    game.load.image('earthPiece5', 'assets/img/EarthPiece5.png');
-		    game.load.image('mars', 'assets/img/MarsSprite.png');
-		    game.load.image('marsPiece1', 'assets/img/MarsPiece1.png');
-		    game.load.image('marsPiece2', 'assets/img/MarsPiece2.png');
-		    game.load.image('marsPiece3', 'assets/img/MarsPiece3.png');
-		    game.load.image('marsPiece4', 'assets/img/MarsPiece4.png');
-		    game.load.image('marsPiece5', 'assets/img/MarsPiece5.png');
+		    game.load.image('Earth', 'assets/img/EarthSprite.png');
+		    game.load.image('EarthPiece1', 'assets/img/EarthPiece1.png');
+		    game.load.image('EarthPiece2', 'assets/img/EarthPiece2.png');
+		    game.load.image('EarthPiece3', 'assets/img/EarthPiece3.png');
+		    game.load.image('EarthPiece4', 'assets/img/EarthPiece4.png');
+		    game.load.image('EarthPiece5', 'assets/img/EarthPiece5.png');
+		    game.load.image('Mars', 'assets/img/MarsSprite.png');
+		    game.load.image('MarsPiece1', 'assets/img/MarsPiece1.png');
+		    game.load.image('MarsPiece2', 'assets/img/MarsPiece2.png');
+		    game.load.image('MarsPiece3', 'assets/img/MarsPiece3.png');
+		    game.load.image('MarsPiece4', 'assets/img/MarsPiece4.png');
+		    game.load.image('MarsPiece5', 'assets/img/MarsPiece5.png');
 		    game.load.image('asteroid', 'assets/img/AsteroidSprite.png');
 		     game.load.image('asteroidPiece1', 'assets/img/AsteroidPiece1.png');
 		    game.load.image('asteroidPiece2', 'assets/img/AsteroidPiece2.png');
@@ -53,6 +53,9 @@ MainMenu.prototype = {
 		if(game.musicPlayer == null) game.musicPlayer = game.add.audio('music');
 		if(game.chillMusicPlayer == null) game.chillMusicPlayer = game.add.audio('chillMusic');
 		console.log(game);
+
+		// Make controller
+		game.cursors = game.input.keyboard.createCursorKeys();
 
 		// if(!game.chillMusicPlayer.isPlaying) game.chillMusicPlayer.play("", 0, 1, true);
 		game.chillMusicPlayer.play("", 0, 0.5, true);
