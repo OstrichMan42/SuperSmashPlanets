@@ -6,6 +6,10 @@ keys - Array of keys of images to display
 game - the game object to add this into
 
 x, y - position of this object
+
+prevKey - Phaser keycode to go to the left node
+
+nextKey - Phaser keycode to go to the right node
 */
 
 // Creates an invisible sprite that the camera follows
@@ -17,8 +21,8 @@ var ScrollingMenu = function(game, keys, x, y, prevKey, nextKey) {
 
 	// This is useful later
 	this.total = keys.length;
-	this.currentIndex = 0;
-	this.currentKey = keys[0]
+	this.currentIndex = 0;  // currentIndex is the index in the original array (keys) of the image that is currently being displayed
+	this.currentKey = keys[0] // currentKey is the key currently being displayed
 
 	// Make it real
 	game.add.existing(this);
@@ -55,18 +59,6 @@ var ScrollingMenu = function(game, keys, x, y, prevKey, nextKey) {
     // Make key to scroll left
 	this.prevKey = game.input.keyboard.addKey(prevKey);
     this.prevKey.onDown.add(ScrollPrev, this);
-
-	// For those of you interested in having children
-	// https://phaser.io/examples/v2/sprites/child-sprites
-	// this.current = this.addChild(game.make.sprite(-100, 0, this.dLL[0].key));
-
-	// this.previous = this.addChild(game.make.sprite(-100, 0, this.dLL[0].left.key));
-	// this.previous.alpha = 0.3;
-	// this.previous.scale.setTo(0.3);
-
-	// this.next = this.addChild(game.make.sprite(100, 0, this.dLL[0].right.key));
-	// this.next.alpha = 0.3;
-	// this.next.scale.setTo(0.3);
 
 	console.log("new scrolling menu object");
 }
