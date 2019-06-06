@@ -12,7 +12,7 @@ prevKey - Phaser keycode to go to the left node
 nextKey - Phaser keycode to go to the right node
 */
 
-// Creates an invisible sprite that the camera follows
+// Creates a sprite that swaps to another sprite when a key is pressed, has some properties that are useful
 var ScrollingMenu = function(game, keys, x, y, prevKey, nextKey) {
 
 	// This is the sprite that gets swapped with other keys, starts at index 0
