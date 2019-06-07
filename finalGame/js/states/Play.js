@@ -3,12 +3,15 @@
 var Play = function(game) {};
 
 Play.prototype = {
-	init: function(debug, score){
+	init: function(debug, score, bg, playerSprites){
 		// Necessary variables
+		this.bg = bg;
+		//console.log(bg);
+		
 		this.time;
 		this.debug = debug;
-		game.PLAYERSPEED = 25;
 		this.score = score;
+<<<<<<< HEAD
 		this.woosh;
 
 		// Make audio players
@@ -16,16 +19,27 @@ Play.prototype = {
 		if(game.woosh == null) game.woosh = game.add.audio('woosh');
 		if(game.crash == null) game.crash = game.add.audio('crash');
 		if(game.boing == null) game.boing = game.add.audio('boing');
+=======
+		this.playerSprites = playerSprites;
+
+		game.PLAYERSPEED = 25;
+>>>>>>> 482ef792558bd8fc4ba6fb57d820d9fc9435ad83
 	},
 	create: function() {
 		// Realtime is best time
 		game.time.slowMotion = 1;
 
 		// Start music
-		if(!game.musicPlayer.isPlaying)game.musicPlayer.play("", 0, 1, true);
+		if(!game.musicPlayer.isPlaying) {
+			game.musicPlayer.fadeIn(3000, true);
+			game.chillMusicPlayer.play("", 0, 0, true);
+		}
+		else {
+			game.musicPlayer.fadeTo(3000, 1);
+			game.chillMusicPlayer.fadeTo(1500, 0.01);
+		}
 
-		// Add background
-		var bg = game.add.sprite(0, 0, 'spaceBackground');
+		var bg = game.add.sprite(0, 0, this.bg);
 		bg.scale.setTo(0.5, 1);
 
 		// Create groups for players and asteroids
@@ -44,10 +58,10 @@ Play.prototype = {
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 			
 		// Make character 1
-		this.earth = new GBody(game, 700, 'earth', 1);
+		this.player1 = new GBody(game, 700, this.playerSprites[0], 1);
 
 		// Make character 2
-		this.mars = new GBody(game, 700, 'mars', 2);
+		this.player2 = new GBody(game, 700, this.playerSprites[1], 2);
 
 		// Make asteroid
 		this.asteroid = new GBody(game, 500, 'asteroid', 0);
@@ -55,9 +69,6 @@ Play.prototype = {
 	    // Any starting velocity for the asteroid
 		// this.asteroid.body.velocity.y = -50;
 		// this.asteroid.body.velocity.x = -10;
-		
-		// Make controller
-		game.cursors = game.input.keyboard.createCursorKeys();
 
 		// Make a timer for timing
 		// this.time = game.time.create();
@@ -66,7 +77,7 @@ Play.prototype = {
 		// An empty sprite that I create just because the camera needs a sprite to follow
 		// this.cameraCenter = game.add.sprite(0, 0, '');
 		// game.camera.follow(this.cameraCenter, 0.7, 0.7);
-		this.cameraCenter = new cameraCenter(game, [this.earth, this.mars]);
+		//this.cameraCenter = new cameraCenter(game, [this.player1, this.player2]);
 
 		game.stage.backgroundColor = "#000000";
 
@@ -81,12 +92,12 @@ Play.prototype = {
 	update: function() {
 		// run game loop
 		// Get the x,y coordinates from these sprites
-		this.p1Point.copyFrom(this.earth);
-		this.p2Point.copyFrom(this.mars);
+		this.p1Point.copyFrom(this.player1);
+		this.p2Point.copyFrom(this.player2);
 		this.astPoint.copyFrom(this.asteroid);
-		this.camPoint.copyFrom(this.cameraCenter);
+		//this.camPoint.copyFrom(this.cameraCenter);
 
-		// Get camera center from earth position and mars
+		// Get camera center from player1 position and player2
 		// Phaser.Point.interpolate(this.p1Point, this.p2Point, 0.5).copyTo(this.cameraCenter);
 
    		// Handle Collisions
@@ -111,6 +122,11 @@ Play.prototype = {
 
    			game.crash.play("", 0, 1, false);
    		}
+
+   		if(game.input.keyboard.isDown(Phaser.Keyboard.ESC)) {
+   			game.musicPlayer.stop();
+			game.state.start("MainMenu", true, false, true);
+		}
 	},
 
 	render: function() {
@@ -118,9 +134,9 @@ Play.prototype = {
 			game.debug.geom(this.p1Point, '#1546c1');
 			game.debug.geom(this.p2Point, '#c13715');
 			game.debug.geom(this.astPoint, '#562d13');
-			game.debug.geom(this.camPoint, '#ffffff');
-			game.debug.body(this.earth);
-			game.debug.body(this.mars);
+			//game.debug.geom(this.camPoint, '#ffffff');
+			game.debug.body(this.player1);
+			game.debug.body(this.player2);
 			game.debug.body(this.asteroid);
 		}
 	}
@@ -128,12 +144,12 @@ Play.prototype = {
 
 // Is run when player gets hit by an asteroid
 function playerHit (loser, asteroid) {
-	console.log('earth bumped an asteroid');
+	console.log('player1 bumped an asteroid');
    	//this.musicPlayer.stop();
    	if (loser.player == 1) {
-			var winner = this.mars;
+			var winner = this.player2;
 	} else {
-			var winner = this.earth;
+			var winner = this.player1;
 	}
 	if (winner.player == 1) {
 		this.score[1] += 1;
@@ -144,10 +160,10 @@ function playerHit (loser, asteroid) {
    	DeathAnimation(loser);
    	asteroid.kill();
    	DeathAnimation(asteroid);
-   	this.cameraCenter.destroy();
+   	//this.cameraCenter.destroy();
    	
 	console.log("right before gameover jump");
-   	game.state.start('GameOver', false, false, loser, winner, this.score);
+   	game.state.start('GameOver', false, false, loser, winner, this.score, this.bg, this.playerSprites);
 }
 
 // Death animation for various objects

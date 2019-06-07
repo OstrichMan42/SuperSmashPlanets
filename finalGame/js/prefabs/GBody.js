@@ -3,13 +3,11 @@
 // Mass is the mass of the object
 // character is the key of the sprite,
 // player is 1 for player 1, 2 for player 2, or 0 for an asteroid
-var GBody = function(game, mass, character, player, rounds) {
+var GBody = function(game, mass, character, player) {
 	// Save important arguments
 	this.player = player;
 	this.mass = mass;
 	this.MASS = mass; // This value does not change past here
-	this.rounds = rounds; 
-	//this.trail = [];
 	var PLAYER_STARTING_DISTANCE = 300;
 
 	// Set starting position based on player
@@ -74,33 +72,35 @@ var GBody = function(game, mass, character, player, rounds) {
 
 		// Make trail
 		this.trail = game.add.emitter(game, this.x, this.y, 120);
-		console.log(this.trail);
 
 		// Fade out and shrink
 		// Code swooped from https://codepen.io/luisfedrizze/pen/reqeyQ?editors=0010
-		this.trail.gravity = 0;
+		//this.trail.gravity = 0;
 	    this.trail.maxParticleSpeed = 0;
 	    this.trail.minRotation = 0;
 	    this.trail.maxRotation = 0;
 		this.trail.autoScale = false;
-		this.trail.frequency = 250;
-	 	this.trail.setAlpha(1, 0, 500);
-		this.trail.setScale(this.scale.x, 0, this.scale.y, 0, 500, 'Linear');
+		// this.trail.frequency = 250;
+	 	this.trail.setAlpha(1, 0, 500, Phaser.Easing.Quadratic.Out);
+		this.trail.setScale(this.scale.x, 0, this.scale.y, 0, 500, Phaser.Easing.Quadratic.Out);
 	 	this.trail.makeParticles(this.key);
-	    this.trail.start(false,3000,0);
+	    // this.trail.start(false,3000,0);
+	    // using flow
+	    this.trail.flow(500, 5, 1, -1, true);
 
 	} else if (player == 1 || player == 2){
 		game.players.add(this);
 		this.maxSpeed = 250;
 		this.anchor.set(0.5);
 		this.scale.setTo(0.1);
+		if (this.player == 2) this.scale.x *= -1;
 		// this one line makes a circular hitbox
 		this.body.setCircle(300);
 		this.body.drag.set(200);
 		this.body.bounce.set(0.7);
 		this.body.collideWorldBounds = true;
 
-		console.log(this);
+		//console.log(this);
 	} else if (player == 3){
 		game.debris.add(this);
 		game.physics.arcade.enable(this);
@@ -205,8 +205,12 @@ function ChangeGravity () {
 
 		if (this.mass > this.MASS) {
 			this.mass = this.MASS;
+<<<<<<< HEAD
 		}
 		else {
+=======
+		} else {
+>>>>>>> 482ef792558bd8fc4ba6fb57d820d9fc9435ad83
 			game.add.tween(this).to({mass: this.MASS * 2.5}, 1000, 'Linear', true);
 		}
 	}
