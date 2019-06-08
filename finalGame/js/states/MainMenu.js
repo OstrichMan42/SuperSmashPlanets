@@ -28,8 +28,14 @@ MainMenu.prototype = {
 		    game.load.image('MarsPiece3', 'assets/img/MarsPiece3.png');
 		    game.load.image('MarsPiece4', 'assets/img/MarsPiece4.png');
 		    game.load.image('MarsPiece5', 'assets/img/MarsPiece5.png');
+		    game.load.image('Target', 'assets/img/Target.png');
+		    game.load.image('TargetPiece1', 'assets/img/TargetPiece1.png');
+		    game.load.image('TargetPiece2', 'assets/img/TargetPiece2.png');
+		    game.load.image('TargetPiece3', 'assets/img/TargetPiece3.png');
+		    game.load.image('TargetPiece4', 'assets/img/TargetPiece4.png');
+		    game.load.image('TargetPiece5', 'assets/img/TargetPiece5.png');
 		    game.load.image('asteroid', 'assets/img/AsteroidSprite.png');
-		     game.load.image('asteroidPiece1', 'assets/img/AsteroidPiece1.png');
+		    game.load.image('asteroidPiece1', 'assets/img/AsteroidPiece1.png');
 		    game.load.image('asteroidPiece2', 'assets/img/AsteroidPiece2.png');
 		    game.load.image('asteroidPiece3', 'assets/img/AsteroidPiece3.png');
 		    game.load.image('asteroidPiece4', 'assets/img/AsteroidPiece4.png');
@@ -70,7 +76,7 @@ MainMenu.prototype = {
 		bg.scale.setTo(0.5, 1);
 
 		// Space is big. Really big. You just won't believe how vastly, hugely, mind-bogglingly big it is. I mean, you may think it's a long way down the road to the chemist, but that's just peanuts to space.
-		// game.world.setBounds(0, 0, 850, 850);
+		// game.world.setBounds(0, 0, 1500, 1500);
 
 		this.title = game.add.sprite(0, 0, 'title');
 		this.title.scale.setTo(0.47);
@@ -94,7 +100,7 @@ MainMenu.prototype = {
 			game.state.start("PreGame", false);
 		}
 		if(game.input.keyboard.isDown(Phaser.Keyboard.T)){
-			console.log("spacebar pressed");
+			console.log("T pressed");
 			this.title.kill();
 			this.play.kill();
 			this.tutorial.kill();
