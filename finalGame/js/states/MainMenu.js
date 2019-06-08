@@ -41,9 +41,17 @@ MainMenu.prototype = {
 		    game.load.image('asteroidPiece4', 'assets/img/AsteroidPiece4.png');
 		    game.load.image('asteroidPiece5', 'assets/img/AsteroidPiece5.png');
 		    game.load.image('playButton', 'assets/img/Space_NotPressed.png');
-		    game.load.image('playButtonDown', 'assets/img/Space_Pressed.png');
 		    game.load.image('tutorialButton', 'assets/img/T_NotPressed.png');
-		    game.load.image('tutorialButtonDown', 'assets/img/T_Pressed.png');
+		    game.load.image('W', 'assets/img/W_Key.png');
+		    game.load.image('A', 'assets/img/A_Key.png');
+		    game.load.image('S', 'assets/img/S_Key.png');
+		    game.load.image('D', 'assets/img/D_Key.png');
+		    game.load.image('F', 'assets/img/F_Key.png');
+		    game.load.image('up', 'assets/img/Up_Key.png');
+		    game.load.image('down', 'assets/img/Down_Key.png');
+		    game.load.image('left', 'assets/img/Left_Key.png');
+		    game.load.image('right', 'assets/img/Right_Key.png');
+		    game.load.image('M', 'assets/img/M_Key.png');
 
 		    // Load audio
 		    game.load.audio('music', 'assets/audio/SpaceBattle.wav');

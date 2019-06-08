@@ -28,17 +28,43 @@ Tutorial.prototype = {
 		
 		// Make character 1
 		this.player1 = new GBody(game, 700, "Earth", 1);
-		this.player1.addChild(game.make.sprite(350, 0, "D"));
-		this.player1.addChild(game.make.sprite(-350, 0, "A"));
-		this.player1.addChild(game.make.sprite(0, -350, "W"));
-		this.player1.addChild(game.make.sprite(0, 350, "S"));
+		// Make instructions
+		var button = game.make.sprite(550, 0, "D");
+		button.scale.setTo(5.5);
+		button.anchor.set(0.5);
+		this.player1.addChild(button);
+		button = game.make.sprite(-550, 0, "A");
+		button.scale.setTo(5.5);
+		button.anchor.set(0.5);
+		this.player1.addChild(button);
+		button = game.make.sprite(0, -550, "W");
+		button.scale.setTo(5.5);
+		button.anchor.set(0.5);
+		this.player1.addChild(button);
+		button = game.make.sprite(0, 550, "S");
+		button.scale.setTo(5.5);
+		button.anchor.set(0.5);
+		this.player1.addChild(button);
 
 		// Make character 2
 		this.player2 = new GBody(game, 700, "Mars", 2);
-		this.player2.addChild(game.make.sprite(350, 0, "right"));
-		this.player2.addChild(game.make.sprite(-350, 0, "left"));
-		this.player2.addChild(game.make.sprite(0, -350, "up"));
-		this.player2.addChild(game.make.sprite(0, 350, "down"));
+		// Make instructions
+		var button = game.make.sprite(550, 0, "right");
+		button.scale.setTo(5.5);
+		button.anchor.set(0.5);
+		this.player2.addChild(button);
+		button = game.make.sprite(-550, 0, "left");
+		button.scale.setTo(5.5);
+		button.anchor.set(0.5);
+		this.player2.addChild(button);
+		button = game.make.sprite(0, -550, "up");
+		button.scale.setTo(5.5);
+		button.anchor.set(0.5);
+		this.player2.addChild(button);
+		button = game.make.sprite(0, 550, "down");
+		button.scale.setTo(5.5);
+		button.anchor.set(0.5);
+		this.player2.addChild(button);
 
 		// Make asteroid
 		this.asteroid = new GBody(game, 500, 'asteroid', 0);
@@ -90,8 +116,8 @@ Tutorial.prototype = {
 		}
 	},
 	render: function() {
-		game.debug.body(this.target1);
-		game.debug.body(this.target2);
+		// game.debug.body(this.target1);
+		// game.debug.body(this.target2);
 	}
 }
 
