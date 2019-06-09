@@ -63,7 +63,10 @@ MainMenu.prototype = {
 
 		    // Load audio
 		    game.load.audio('music', 'assets/audio/SpaceBattle.wav');
-		    game.load.audio('chillMusic', 'assets/audio/SpaceBattleCalm.wav');
+		    game.load.audio('woosh', 'assets/audio/woosh.mp3');
+		    game.load.audio('crash', 'assets/audio/crash.mp3');
+		    game.load.audio('boing', 'assets/audio/boing.mp3');
+
 		    
 		    console.log("loaded assets");
 		}

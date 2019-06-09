@@ -199,9 +199,13 @@ GBody.prototype.render = function() {
 function ChangeGravity () {
 	if (this.mass == this.MASS || this.mass == this.MASS * 2.5){
 		console.log('changing density');
+		//Placeholder sound woosh
+		game.woosh.play("", 0, 1, false);
+
 		if (this.mass > this.MASS) {
 			this.mass = this.MASS;
-		} else {
+		}
+		else {
 			game.add.tween(this).to({mass: this.MASS * 2.5}, 1000, 'Linear', true);
 		}
 	}

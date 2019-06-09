@@ -11,10 +11,17 @@ Play.prototype = {
 		this.time;
 		this.debug = debug;
 		this.score = score;
+		this.woosh;
 		this.playerSprites = playerSprites;
 		if (wins != null) this.wins = wins;
 
 		game.PLAYERSPEED = 25;
+
+		// Make audio players
+		if(game.musicPlayer == null) game.musicPlayer = game.add.audio('music');
+		if(game.woosh == null) game.woosh = game.add.audio('woosh');
+		if(game.crash == null) game.crash = game.add.audio('crash');
+		if(game.boing == null) game.boing = game.add.audio('boing');
 	},
 	create: function() {
 		// Realtime is best time
@@ -86,6 +93,12 @@ Play.prototype = {
 		// Make asteroid
 		this.asteroid = new GBody(game, 500, 'asteroid', 0);
 
+		// Make a timer for spawning obstacles
+		// help from http://jsfiddle.net/lewster32/vd70o41p/ and phaser documentation
+		// this.time = game.time.create();
+		// this.spawnTimer = this.time.add(20000, MakeAsteroid, this);
+		// this.time.start();
+		
 		game.stage.backgroundColor = "#000000";
 
 		// Used for debugging some code from https://phaser.io/examples/v2/sprites/anchor
@@ -106,12 +119,14 @@ Play.prototype = {
    		// Handle Collisions
    		if (game.physics.arcade.collide(game.players)){
    			console.log('players bumped');
+   			game.boing.play("", 0, 1, false);
    		}
    		if (game.physics.arcade.collide(game.asteroids)){
    			console.log('asteroids bumped');
    		}
    		if (game.physics.arcade.collide(game.debris, game.players)){
    			console.log('bonk');
+   			game.boing.play("", 0, 1, false);
    		}
    		// if (game.physics.arcade.collide(game.debris)){
    		// 	console.log('bink');
@@ -120,6 +135,8 @@ Play.prototype = {
    		// Player gets hit
    		if (game.physics.arcade.collide(game.players, game.asteroids, playerHit, null, this)){
    			console.log("it's a mystery????");
+
+   			game.crash.play("", 0, 1, false);
    		}
 
    		if(game.input.keyboard.isDown(Phaser.Keyboard.ESC)) {
@@ -182,6 +199,20 @@ function DeathAnimation (obj) {
 		obj.trail.destroy();
 	}
 	obj.destroy();
+}
+
+function MakeAsteroid () {
+	console.log("sudden death");
+	// Makes an asteroid off the top or bottom of the screen at random
+	let x = game.rnd.integerInRange(0, game.world.width);
+	let offscreen = [-35, game.world.height + 35];
+	// This line from https://stackoverflow.com/questions/5915096/get-random-item-from-javascript-array
+	let y = offscreen[Math.floor(Math.random()*offscreen.length)];
+	var ast = new GBody(game, 500, 'asteroid', 0);
+	ast.x = x;
+	ast.y = y;
+
+	this.spawnTimer = this.time.add(15000, MakeAsteroid, this);
 }
 
 game.state.add("Play", Play);
