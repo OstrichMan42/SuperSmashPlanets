@@ -3,13 +3,14 @@
 var GameOver = function(game) {};
 GameOver.prototype = {
 
-	init: function(loser, winner, score, bg, playerSprites) {
+	init: function(loser, winner, score, bg, playerSprites, wins) {
 		this.winner = winner;
 		console.log(winner + " wins");
 		this.loser = loser;
 		this.score = score;
 		this.bg = bg;
 		this.playerSprites = playerSprites;
+		this.wins = wins;
 
 		console.log(score);
 	},
@@ -29,6 +30,15 @@ GameOver.prototype = {
 		game.camera.follow(this.winner, 0.1, 0.1);
 		this.winner.body.bounce.set(0);
 
+		// Update score UI
+		var playerNum = this.winner.player;
+		if (playerNum == 1 && this.score[1] <= this.score[0]){
+			this.wins[this.score[1]-1].loadTexture('RoundWin');
+		} else if (this.score[2] <= this.score[0]) {
+			this.wins[Math.floor(this.wins.length/2) + this.score[2]-1].loadTexture('RoundWin');
+		}
+
+		// Make text for winner
 		if (this.score[1] >= this.score[0] || this.score[2] >= this.score[0]) {
 			var text = this.winner.key + " wins!\nPress space to play again";
 		} else {
