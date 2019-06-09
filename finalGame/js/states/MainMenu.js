@@ -11,38 +11,6 @@ MainMenu.prototype = {
 	preload: function() {
 		console.log("loaded main menu");
 
-<<<<<<< HEAD
-		// Preload assets
-		// Images
-		game.load.image('title', 'assets/img/Title.png');
-	   	game.load.image('instructions', 'assets/img/Instructions.png');
-		game.load.image('spaceBackground', 'assets/img/Background.png');
-	    game.load.image('hole', 'assets/img/BlackHole.jpg');
-	    game.load.image('earth', 'assets/img/EarthSprite.png');
-	    game.load.image('earthPiece1', 'assets/img/EarthPiece1.png');
-	    game.load.image('earthPiece2', 'assets/img/EarthPiece2.png');
-	    game.load.image('earthPiece3', 'assets/img/EarthPiece3.png');
-	    game.load.image('earthPiece4', 'assets/img/EarthPiece4.png');
-	    game.load.image('earthPiece5', 'assets/img/EarthPiece5.png');
-	    game.load.image('mars', 'assets/img/MarsSprite.png');
-	    game.load.image('marsPiece1', 'assets/img/MarsPiece1.png');
-	    game.load.image('marsPiece2', 'assets/img/MarsPiece2.png');
-	    game.load.image('marsPiece3', 'assets/img/MarsPiece3.png');
-	    game.load.image('marsPiece4', 'assets/img/MarsPiece4.png');
-	    game.load.image('marsPiece5', 'assets/img/MarsPiece5.png');
-	    game.load.image('asteroid', 'assets/img/AsteroidSprite.png');
-	    game.load.image('playButton', 'assets/img/PlayButton.png');
-	    game.load.image('tutorialButton', 'assets/img/TutorialButton.png');
-
-	    // Load audio
-	    game.load.audio('music', 'assets/audio/SpaceBattle.wav');
-	    game.load.audio('woosh', 'assets/audio/woosh.mp3');
-	    game.load.audio('crash', 'assets/audio/crash.mp3');
-	    game.load.audio('boing', 'assets/audio/boing.mp3');
-
-	    
-	    console.log("loaded assets");
-=======
 		if (!this.loaded){
 			// Preload assets
 			// Images
@@ -95,12 +63,14 @@ MainMenu.prototype = {
 
 		    // Load audio
 		    game.load.audio('music', 'assets/audio/SpaceBattle.wav');
-		    game.load.audio('chillMusic', 'assets/audio/SpaceBattleCalm.wav');
+		    game.load.audio('woosh', 'assets/audio/woosh.mp3');
+		    game.load.audio('crash', 'assets/audio/crash.mp3');
+		    game.load.audio('boing', 'assets/audio/boing.mp3');
+
 		    
 		    console.log("loaded assets");
 		}
 
->>>>>>> 482ef792558bd8fc4ba6fb57d820d9fc9435ad83
 	},
 	create: function() {
 		
