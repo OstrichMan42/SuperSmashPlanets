@@ -29,9 +29,25 @@ Play.prototype = {
 			game.chillMusicPlayer.fadeTo(1500, 0.01);
 		}
 
-		var bg = game.add.sprite(0, 0, this.bg);
-		bg.scale.setTo(0.5, 1);
+		// Make round UI
+		if (this.score[1] == 0 && this.score[2] == 0) {
+			// New game
+			var bg = game.add.sprite(0, 0, this.bg);
+			bg.scale.setTo(0.5, 1);
+			
+			var roundUI = game.add.sprite(0, 0, "RoundBar");
+			roundUI.scale.setTo(0.4);
+			roundUI.alpha = 0.5;
+			roundUI = game.add.sprite(game.world.width, 0, "RoundBar");
+			roundUI.scale.setTo(0.4);
+			roundUI.alpha = 0.5;
+			//roundUI.anchor.x = 1;
+			roundUI.scale.x *= -1;
+		} else {
+			// Continuing game
 
+		}
+		
 		// Create groups for players and asteroids
 		game.players = game.add.group();
 		// this.players.enableBody = true;
@@ -41,8 +57,6 @@ Play.prototype = {
 		// Create group for random space debris
 		game.debris = game.add.group();
 		game.debris.enableBody = true;
-
-		// Start music
 		
 		// Enable physics
 		game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -56,21 +70,12 @@ Play.prototype = {
 		// Make asteroid
 		this.asteroid = new GBody(game, 500, 'asteroid', 0);
 
-	    // Any starting velocity for the asteroid
-		// this.asteroid.body.velocity.y = -50;
-		// this.asteroid.body.velocity.x = -10;
-
 		// Make a timer for spawning obstacles
 		// help from http://jsfiddle.net/lewster32/vd70o41p/ and phaser documentation
-		this.time = game.time.create();
-		this.spawnTimer = this.time.add(20000, MakeAsteroid, this);
-		this.time.start();
-
-		// An empty sprite that I create just because the camera needs a sprite to follow
-		// this.cameraCenter = game.add.sprite(0, 0, '');
-		// game.camera.follow(this.cameraCenter, 0.7, 0.7);
-		//this.cameraCenter = new cameraCenter(game, [this.player1, this.player2]);
-
+		// this.time = game.time.create();
+		// this.spawnTimer = this.time.add(20000, MakeAsteroid, this);
+		// this.time.start();
+		
 		game.stage.backgroundColor = "#000000";
 
 		// Used for debugging some code from https://phaser.io/examples/v2/sprites/anchor
@@ -87,10 +92,6 @@ Play.prototype = {
 		this.p1Point.copyFrom(this.player1);
 		this.p2Point.copyFrom(this.player2);
 		this.astPoint.copyFrom(this.asteroid);
-		//this.camPoint.copyFrom(this.cameraCenter);
-
-		// Get camera center from player1 position and player2
-		// Phaser.Point.interpolate(this.p1Point, this.p2Point, 0.5).copyTo(this.cameraCenter);
 
    		// Handle Collisions
    		if (game.physics.arcade.collide(game.players)){
@@ -150,7 +151,7 @@ function playerHit (loser, asteroid) {
    	DeathAnimation(asteroid);
    	//this.cameraCenter.destroy();
    	
-	console.log("right before gameover jump");
+	// console.log(winner);
    	game.state.start('GameOver', false, false, loser, winner, this.score, this.bg, this.playerSprites);
 }
 

@@ -9,10 +9,10 @@ PreGame.prototype = {
 
 	},
 	create: function() {
-		this.p1Select = new ScrollingMenu(game, ['Earth', 'Mars'], game.world.centerX - 150, game.world.centerY, Phaser.Keyboard.A, Phaser.Keyboard.D);
+		this.p1Select = new ScrollingMenu(game, ['Earth', 'Mars', 'Nathan'], game.world.centerX - 150, game.world.centerY, Phaser.Keyboard.A, Phaser.Keyboard.D);
 		this.p1Select.scale.setTo(0.2);
 
-		this.p2Select = new ScrollingMenu(game, ['Mars', 'Earth'], game.world.centerX + 150, game.world.centerY, Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT);
+		this.p2Select = new ScrollingMenu(game, ['Mars', 'Earth', 'Nathan'], game.world.centerX + 150, game.world.centerY, Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT);
 		this.p2Select.scale.setTo(0.2);
 		this.p2Select.scale.x *= -1;
 		console.log("PreGame created");

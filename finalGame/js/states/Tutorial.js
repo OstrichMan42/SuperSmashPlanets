@@ -84,8 +84,9 @@ Tutorial.prototype = {
 	update: function() {
 		// Clean up
 		if (game.debris.children.length > 10) {
-			game.debris.forEach(function(kid) {kid.destroy();}, this, true);
-			console.log(game.debris.children.length);
+			//game.debris.forEach(function(kid) {kid.destroy();}, this, true);
+			game.debris.destroy(true, true);
+			//console.log(game.debris.children.length);
 		}
 
 		// Handle Collisions

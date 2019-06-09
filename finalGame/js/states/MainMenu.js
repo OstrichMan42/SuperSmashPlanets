@@ -51,7 +51,15 @@ MainMenu.prototype = {
 		    game.load.image('down', 'assets/img/Down_Key.png');
 		    game.load.image('left', 'assets/img/Left_Key.png');
 		    game.load.image('right', 'assets/img/Right_Key.png');
-		    game.load.image('M', 'assets/img/M_Key.png');
+		    game.load.image('RoundWin', 'assets/img/RoundUIWon.png');
+		    game.load.image('RoundNotWin', 'assets/img/RoundUINotWon.png');
+		    game.load.image('RoundBar', 'assets/img/RoundUIBackground.png');
+		    game.load.image('Nathan', 'assets/img/Nathan.png');
+		    game.load.image('NathanPiece1', 'assets/img/basketball.png');
+		    game.load.image('NathanPiece2', 'assets/img/basketball.png');
+		    game.load.image('NathanPiece3', 'assets/img/basketball.png');
+		    game.load.image('NathanPiece4', 'assets/img/basketball.png');
+		    game.load.image('NathanPiece5', 'assets/img/basketball.png');
 
 		    // Load audio
 		    game.load.audio('music', 'assets/audio/SpaceBattle.wav');
