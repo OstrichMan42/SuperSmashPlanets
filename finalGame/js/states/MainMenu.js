@@ -132,7 +132,7 @@ MainMenu.prototype = {
 		}
 		if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){
 			game.chillMusicPlayer.stop();
-			game.state.start("Play", true, false, true, [2, 0, 0], 'spaceBackground');
+			game.state.start("Play", true, false, true, [2, 0, 0], 'spaceBackground', ["Nathan", "Nathan"]);
 		}
 	}
 }

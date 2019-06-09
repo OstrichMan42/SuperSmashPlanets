@@ -3,7 +3,7 @@
 var Play = function(game) {};
 
 Play.prototype = {
-	init: function(debug, score, bg, playerSprites){
+	init: function(debug, score, bg, playerSprites, wins){
 		// Necessary variables
 		this.bg = bg;
 		//console.log(bg);
@@ -13,6 +13,7 @@ Play.prototype = {
 		this.score = score;
 		this.woosh;
 		this.playerSprites = playerSprites;
+		if (wins != null) this.wins = wins;
 
 		game.PLAYERSPEED = 25;
 
@@ -32,7 +33,7 @@ Play.prototype = {
 			game.chillMusicPlayer.play("", 0, 0, true);
 		}
 		else {
-			game.musicPlayer.fadeTo(3000, 1);
+			game.musicPlayer.fadeTo(5000, 1);
 			game.chillMusicPlayer.fadeTo(1500, 0.01);
 		}
 
@@ -43,13 +44,28 @@ Play.prototype = {
 			bg.scale.setTo(0.5, 1);
 			
 			var roundUI = game.add.sprite(0, 0, "RoundBar");
-			roundUI.scale.setTo(0.4);
+			roundUI.scale.setTo(0.5);
 			roundUI.alpha = 0.5;
 			roundUI = game.add.sprite(game.world.width, 0, "RoundBar");
-			roundUI.scale.setTo(0.4);
+			roundUI.scale.setTo(0.5);
 			roundUI.alpha = 0.5;
 			//roundUI.anchor.x = 1;
 			roundUI.scale.x *= -1;
+
+			// Make dots to show score
+			this.wins = [];
+			for (var i = 0; i < this.score[0] * 2; i++) {
+				if (i < this.score[0]) {
+					console.log("p1 ui");
+					this.wins.push(game.add.sprite(20 + i * (150 / this.score[0]), 25, 'RoundNotWin'));
+				} else {
+					console.log("p2 ui");
+					this.wins.push(game.add.sprite(game.world.width - 20 -((i-this.score[0]) * (150 / this.score[0])), 25, 'RoundNotWin'));
+				}
+
+				this.wins[i].anchor.set(0.5);
+				this.wins[i].scale.setTo(0.5);
+			}
 		} else {
 			// Continuing game
 
@@ -163,7 +179,7 @@ function playerHit (loser, asteroid) {
    	//this.cameraCenter.destroy();
    	
 	// console.log(winner);
-   	game.state.start('GameOver', false, false, loser, winner, this.score, this.bg, this.playerSprites);
+   	game.state.start('GameOver', false, false, loser, winner, this.score, this.bg, this.playerSprites, this.wins);
 }
 
 // Death animation for various objects
