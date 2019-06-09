@@ -3,6 +3,8 @@
 var Tutorial = function(game) {};
 Tutorial.prototype = {
 	create: function() {
+		if(game.crash == null) game.crash = game.add.audio('crash');
+
 		// Make background
 		var bg = game.add.sprite(0, 0, 'spaceBackground');
 		bg.scale.setTo(0.5, 1);
@@ -104,8 +106,10 @@ Tutorial.prototype = {
    		}
    		// Target gets hit
    		if (game.physics.arcade.overlap(this.target1, game.asteroids, targetHit, null, this)){
+   			game.crash.play("", 0, 1, false);
    		}
    		if (game.physics.arcade.overlap(this.target2, game.asteroids, targetHit, null, this)){
+   			game.crash.play("", 0, 1, false);
    		}
 
    		// Swap states

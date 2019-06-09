@@ -6,7 +6,7 @@ PreGame.prototype = {
 
 	},
 	preload: function() {
-
+		
 	},
 	create: function() {
 		this.p1Select = new ScrollingMenu(game, ['Earth', 'Mars', 'Nathan'], game.world.centerX - 150, game.world.centerY, Phaser.Keyboard.A, Phaser.Keyboard.D);
