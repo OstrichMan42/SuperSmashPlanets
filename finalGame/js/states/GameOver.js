@@ -5,6 +5,7 @@ GameOver.prototype = {
 
 	init: function(loser, winner, score, bg, playerSprites) {
 		this.winner = winner;
+		console.log(winner + " wins");
 		this.loser = loser;
 		this.score = score;
 		this.bg = bg;
@@ -31,9 +32,9 @@ GameOver.prototype = {
 		if (this.score[1] >= this.score[0] || this.score[2] >= this.score[0]) {
 			var text = this.winner.key + " wins!\nPress space to play again";
 		} else {
-			var text = "Player " + this.winner.player + " won this round\nPress space to start the next round";
+			var text = this.winner.key + " won this round\nPress space to start the next round";
 		}
-		var gameOverText = game.add.text(game.world.centerX - 150, game.world.centerY - 50, text, { fontSize: '30px', fill: '#ffffff', align: 'center'});
+		this.gameOverText = game.add.text(game.world.centerX - 150, game.world.centerY - 50, text, { fontSize: '30px', fill: '#ffffff', align: 'center'});
 	},
 	update: function() {
    		if (game.physics.arcade.collide(game.debris, game.players)) {
@@ -41,11 +42,15 @@ GameOver.prototype = {
    		}
 
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-			game.state.start("Play", true, false, false, this.score, this.bg, this.playerSprites);
-		} else if(game.input.keyboard.isDown(Phaser.Keyboard.T)) {
-			game.state.start("Tutorial", true, false, true, this.score);
+			this.winner.destroy();
+			this.gameOverText.destroy();
+			game.debris.destroy(true, true);
+			game.state.start("Play", false, false, false, this.score, this.bg, this.playerSprites);
 		} else if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)) {
-			game.state.start("Play", true, false, true, this.score, this.bg, this.playerSprites);
+			this.winner.destroy();
+			this.gameOverText.destroy();
+			game.debris.destroy(true, true);
+			game.state.start("Play", false, false, true, this.score, this.bg, this.playerSprites);
 		}
 
 		if(game.input.keyboard.isDown(Phaser.Keyboard.ESC)) {

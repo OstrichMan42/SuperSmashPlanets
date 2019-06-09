@@ -121,7 +121,6 @@ GBody.prototype.update = function() {
 	if (this.player == 0){
 		// Run gravity
 		Gravity.call(this, game.players.children);
-		//game.players.forEach(Gravity, this, true);
   	 	this.body.velocity.clamp(-this.maxSpeed, this.maxSpeed);
 
   	 	// Check if the asteroid is out of the world, if it is then set it's max speed to something real small so it comes back quickly, also gives players time to react to something offscreen
@@ -223,7 +222,7 @@ function LightGravity (body) {
 
    	// Use phaser point distance function
    	var distance = thisBody.distance(destBody, true);
-   	if (distance < 75) return;
+   	if (distance < 50) return;
 
    	// Create vector with direction towards destination
    	Phaser.Point.subtract(destBody, thisBody, gravityVector);
