@@ -20,7 +20,7 @@ Play.prototype = {
 		// Make audio players
 		if(game.musicPlayer == null) game.musicPlayer = game.add.audio('music');
 		if(game.woosh == null) game.woosh = game.add.audio('woosh');
-		if(game.crash == null) game.crash = game.add.audio('crash');
+		if(game.explosion == null) game.explosion = game.add.audio('explosion');
 		if(game.boing == null) game.boing = game.add.audio('boing');
 	},
 	create: function() {
@@ -136,7 +136,7 @@ Play.prototype = {
    		if (game.physics.arcade.collide(game.players, game.asteroids, playerHit, null, this)){
    			console.log("it's a mystery????");
 
-   			game.crash.play("", 0, 1, false);
+   			game.explosion.play("", 0, 1, false);
    		}
 
    		if(game.input.keyboard.isDown(Phaser.Keyboard.ESC)) {
