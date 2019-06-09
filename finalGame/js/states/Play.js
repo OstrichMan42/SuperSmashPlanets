@@ -11,19 +11,18 @@ Play.prototype = {
 		this.time;
 		this.debug = debug;
 		this.score = score;
-<<<<<<< HEAD
 		this.woosh;
+		this.playerSprites = playerSprites;
+		game.PLAYERSPEED = 25;
 
 		// Make audio players
 		if(game.musicPlayer == null) game.musicPlayer = game.add.audio('music');
 		if(game.woosh == null) game.woosh = game.add.audio('woosh');
 		if(game.crash == null) game.crash = game.add.audio('crash');
 		if(game.boing == null) game.boing = game.add.audio('boing');
-=======
-		this.playerSprites = playerSprites;
 
-		game.PLAYERSPEED = 25;
->>>>>>> 482ef792558bd8fc4ba6fb57d820d9fc9435ad83
+	
+
 	},
 	create: function() {
 		// Realtime is best time

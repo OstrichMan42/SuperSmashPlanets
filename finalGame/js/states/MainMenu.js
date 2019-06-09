@@ -10,39 +10,7 @@ MainMenu.prototype = {
 	},
 	preload: function() {
 		console.log("loaded main menu");
-
-<<<<<<< HEAD
-		// Preload assets
-		// Images
-		game.load.image('title', 'assets/img/Title.png');
-	   	game.load.image('instructions', 'assets/img/Instructions.png');
-		game.load.image('spaceBackground', 'assets/img/Background.png');
-	    game.load.image('hole', 'assets/img/BlackHole.jpg');
-	    game.load.image('earth', 'assets/img/EarthSprite.png');
-	    game.load.image('earthPiece1', 'assets/img/EarthPiece1.png');
-	    game.load.image('earthPiece2', 'assets/img/EarthPiece2.png');
-	    game.load.image('earthPiece3', 'assets/img/EarthPiece3.png');
-	    game.load.image('earthPiece4', 'assets/img/EarthPiece4.png');
-	    game.load.image('earthPiece5', 'assets/img/EarthPiece5.png');
-	    game.load.image('mars', 'assets/img/MarsSprite.png');
-	    game.load.image('marsPiece1', 'assets/img/MarsPiece1.png');
-	    game.load.image('marsPiece2', 'assets/img/MarsPiece2.png');
-	    game.load.image('marsPiece3', 'assets/img/MarsPiece3.png');
-	    game.load.image('marsPiece4', 'assets/img/MarsPiece4.png');
-	    game.load.image('marsPiece5', 'assets/img/MarsPiece5.png');
-	    game.load.image('asteroid', 'assets/img/AsteroidSprite.png');
-	    game.load.image('playButton', 'assets/img/PlayButton.png');
-	    game.load.image('tutorialButton', 'assets/img/TutorialButton.png');
-
-	    // Load audio
-	    game.load.audio('music', 'assets/audio/SpaceBattle.wav');
-	    game.load.audio('woosh', 'assets/audio/woosh.mp3');
-	    game.load.audio('crash', 'assets/audio/crash.mp3');
-	    game.load.audio('boing', 'assets/audio/boing.mp3');
-
-	    
-	    console.log("loaded assets");
-=======
+		
 		if (!this.loaded){
 			// Preload assets
 			// Images
@@ -61,7 +29,7 @@ MainMenu.prototype = {
 		    game.load.image('MarsPiece4', 'assets/img/MarsPiece4.png');
 		    game.load.image('MarsPiece5', 'assets/img/MarsPiece5.png');
 		    game.load.image('asteroid', 'assets/img/AsteroidSprite.png');
-		     game.load.image('asteroidPiece1', 'assets/img/AsteroidPiece1.png');
+		    game.load.image('asteroidPiece1', 'assets/img/AsteroidPiece1.png');
 		    game.load.image('asteroidPiece2', 'assets/img/AsteroidPiece2.png');
 		    game.load.image('asteroidPiece3', 'assets/img/AsteroidPiece3.png');
 		    game.load.image('asteroidPiece4', 'assets/img/AsteroidPiece4.png');
@@ -70,15 +38,31 @@ MainMenu.prototype = {
 		    game.load.image('playButtonDown', 'assets/img/Space_Pressed.png');
 		    game.load.image('tutorialButton', 'assets/img/T_NotPressed.png');
 		    game.load.image('tutorialButtonDown', 'assets/img/T_Pressed.png');
+		    game.load.image('A', 'assets/img/A_Key.png');
+		    game.load.image('S', 'assets/img/S_Key.png');
+		    game.load.image('W', 'assets/img/W_Key.png');
+		    game.load.image('leftArrow', 'assets/img/Left_Key.png');
+		    game.load.image('rightArrow', 'assets/img/Right_Key.png');
+		    game.load.image('downArrow', 'assets/img/Down_Key.png');
+		    game.load.image('upArrow', 'assets/img/Up_Key.png');
+		    game.load.image('SelectPlanet', 'assets/img/SelectPlanet.png');
+		    game.load.image('NumberofRounds', 'assets/img/NumberofRounds.png');
+		    
+
+		   // game.load.image('D', 'assets/img/')
 
 		    // Load audio
-		    game.load.audio('music', 'assets/audio/SpaceBattle.wav');
 		    game.load.audio('chillMusic', 'assets/audio/SpaceBattleCalm.wav');
+		       // Load audio
+	    	game.load.audio('music', 'assets/audio/SpaceBattle.wav');
+	    	game.load.audio('woosh', 'assets/audio/woosh.mp3');
+	    	game.load.audio('crash', 'assets/audio/crash.mp3');
+	    	game.load.audio('boing', 'assets/audio/boing.mp3');
 		    
 		    console.log("loaded assets");
 		}
-
->>>>>>> 482ef792558bd8fc4ba6fb57d820d9fc9435ad83
+game.load.audio('music', 'assets/audio/SpaceBattle.wav');
+		    
 	},
 	create: function() {
 		

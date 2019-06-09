@@ -205,12 +205,8 @@ function ChangeGravity () {
 
 		if (this.mass > this.MASS) {
 			this.mass = this.MASS;
-<<<<<<< HEAD
-		}
-		else {
-=======
+
 		} else {
->>>>>>> 482ef792558bd8fc4ba6fb57d820d9fc9435ad83
 			game.add.tween(this).to({mass: this.MASS * 2.5}, 1000, 'Linear', true);
 		}
 	}
