@@ -60,9 +60,11 @@ Play.prototype = {
 		// this.asteroid.body.velocity.y = -50;
 		// this.asteroid.body.velocity.x = -10;
 
-		// Make a timer for timing
-		// this.time = game.time.create();
-		// this.time.start();
+		// Make a timer for spawning obstacles
+		// help from http://jsfiddle.net/lewster32/vd70o41p/ and phaser documentation
+		this.time = game.time.create();
+		this.spawnTimer = this.time.add(20000, MakeAsteroid, this);
+		this.time.start();
 
 		// An empty sprite that I create just because the camera needs a sprite to follow
 		// this.cameraCenter = game.add.sprite(0, 0, '');
@@ -162,13 +164,27 @@ function DeathAnimation (obj) {
 		var debris = new GBody(game, 5, newKey + i, 3);
 		debris.x = obj.x + game.rnd.integerInRange(-20, 20);
 		debris.y = obj.y + game.rnd.integerInRange(-20, 20);
-		debris.body.velocity.setTo(obj.body.velocity.x + game.rnd.integerInRange(-10, 10), obj.body.velocity.y + game.rnd.integerInRange(-10, 10));
+		debris.body.velocity.setTo(obj.body.velocity.x/2 + game.rnd.integerInRange(-10, 10), obj.body.velocity.y/2 + game.rnd.integerInRange(-10, 10));
 		debris.body.angularVelocity = game.rnd.integerInRange(-55, 55);
 	}
 	if (obj.player == 0){
 		obj.trail.destroy();
 	}
 	obj.destroy();
+}
+
+function MakeAsteroid () {
+	console.log("sudden death");
+	// Makes an asteroid off the top or bottom of the screen at random
+	let x = game.rnd.integerInRange(0, game.world.width);
+	let offscreen = [-35, game.world.height + 35];
+	// This line from https://stackoverflow.com/questions/5915096/get-random-item-from-javascript-array
+	let y = offscreen[Math.floor(Math.random()*offscreen.length)];
+	var ast = new GBody(game, 500, 'asteroid', 0);
+	ast.x = x;
+	ast.y = y;
+
+	this.spawnTimer = this.time.add(15000, MakeAsteroid, this);
 }
 
 game.state.add("Play", Play);

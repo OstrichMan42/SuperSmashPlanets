@@ -83,7 +83,7 @@ Tutorial.prototype = {
 	},
 	update: function() {
 		// Clean up
-		if (game.debris.children.length > 20) {
+		if (game.debris.children.length > 10) {
 			game.debris.forEach(function(kid) {kid.destroy();}, this, true);
 			console.log(game.debris.children.length);
 		}
