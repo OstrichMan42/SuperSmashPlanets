@@ -127,9 +127,6 @@ Play.prototype = {
    			console.log('bonk');
    			game.boing.play("", 0, 1, false);
    		}
-   		// if (game.physics.arcade.collide(game.debris)){
-   		// 	console.log('bink');
-   		// }
 
    		// Player gets hit
    		if (game.physics.arcade.collide(game.players, game.asteroids, playerHit, null, this)){
@@ -184,8 +181,6 @@ function playerHit (loser, asteroid) {
 // Death animation for various objects
 function DeathAnimation (obj) {
 	var newKey = obj.key + "Piece";
-	game.time.slowMotion = 3;
-	// game.add.tween(game.time).to({slowMotion: 1}, 1000, Phaser.Easing.Cubic.Out, true);
 	for (var i = 1; i <= 5; i++){
 		// console.log(newKey + i);
 		var debris = new GBody(game, 5, newKey + i, 3);

@@ -24,10 +24,8 @@ GameOver.prototype = {
 	},
 	create: function() {
 		console.log("game over created");
-		// Slow motion effect for coolness
-		game.add.tween(game.time).to({slowMotion: 1}, 2000, Phaser.Easing.Cubic.Out, true);
-		//game.camera.focusOn(this.winner);
-		game.camera.follow(this.winner, 0.1, 0.1);
+
+		// No bounce
 		this.winner.body.bounce.set(0);
 
 		// Update score UI
@@ -42,9 +40,9 @@ GameOver.prototype = {
 
 		// Make text for winner
 		if (this.score[1] >= this.score[0] || this.score[2] >= this.score[0]) {
-			var text = this.winner.key + " wins!\nPress space to play again";
+			var text = this.winner.key + " wins!\nPress space to continue";
 		} else {
-			var text = this.winner.key + " won this round\nPress space to start the next round";
+			var text = this.winner.key + " won this round\nPress space to continue";
 		}
 		this.gameOverText = game.add.text(game.world.centerX - 150, game.world.centerY - 50, text, { fontSize: '30px', fill: '#ffffff', align: 'center'});
 	},
@@ -57,7 +55,7 @@ GameOver.prototype = {
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
 			// Game over
 			if (this.done) {
-				game.state.start("PreGame");
+				game.state.start("MainMenu", true, false, true);
 			} else { // new round
 				this.winner.destroy();
 				this.gameOverText.destroy();
