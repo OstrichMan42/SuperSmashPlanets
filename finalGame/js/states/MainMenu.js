@@ -110,7 +110,7 @@ MainMenu.prototype = {
 
 		// How to return to the main menu
 		var text = "Press esc to\ncome back here.";
-		var tutorialText = game.add.text(500, 10, text, { fontSize: '20px', fill: '#ffffff'});
+		this.tutorialText = game.add.text(500, 10, text, { fontSize: '20px', fill: '#ffffff'});
 
 		this.title = game.add.sprite(0, 0, 'title');
 		this.title.scale.setTo(0.47);
@@ -131,6 +131,7 @@ MainMenu.prototype = {
 			this.title.kill();
 			this.play.kill();
 			this.tutorial.kill();
+			this.tutorialText.kill();
 			game.state.start("PreGame", false);
 		}
 		if(game.input.keyboard.isDown(Phaser.Keyboard.T)){
@@ -138,6 +139,7 @@ MainMenu.prototype = {
 			this.title.kill();
 			this.play.kill();
 			this.tutorial.kill();
+			this.tutorialText.kill();
 			game.state.start("Tutorial", false);
 		}
 		if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){
