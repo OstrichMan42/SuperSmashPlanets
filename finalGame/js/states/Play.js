@@ -95,9 +95,9 @@ Play.prototype = {
 
 		// Make a timer for spawning obstacles
 		// help from http://jsfiddle.net/lewster32/vd70o41p/ and phaser documentation
-		// this.time = game.time.create();
-		// this.spawnTimer = this.time.add(20000, MakeAsteroid, this);
-		// this.time.start();
+		this.time = game.time.create();
+		this.spawnTimer = this.time.add(20000, MakeAsteroid, this);
+		this.time.start();
 		
 		game.stage.backgroundColor = "#000000";
 
@@ -119,7 +119,6 @@ Play.prototype = {
    		// Handle Collisions
    		if (game.physics.arcade.collide(game.players)){
    			console.log('players bumped');
-   			game.boing.play("", 0, 1, false);
    		}
    		if (game.physics.arcade.collide(game.asteroids)){
    			console.log('asteroids bumped');
