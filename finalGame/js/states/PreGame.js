@@ -44,6 +44,11 @@ PreGame.prototype = {
 		//Number of Rounds switch off
 		this.roundselect = new ScrollingMenu(game, ['one', 'five', 'three'], game.world.centerX + 200, game.world.centerY + 250, Phaser.Keyboard.UP, Phaser.Keyboard.DOWN);
 		this.roundselect.scale.setTo(0.25);
+
+		// instructions
+		var text = "Press enter to start";
+		this.gameOverText = game.add.text(game.world.centerX - 100, 50, text, { fontSize: '30px', fill: '#ffffff', align: 'center'});
+
 		console.log("PreGame created");
 	},
 	update: function() {
@@ -52,7 +57,7 @@ PreGame.prototype = {
 				console.log("Doppleplanets");
 			}
 			game.chillMusicPlayer.stop();
-			game.state.start("Play", true, false, false, [2, 0, 0], 'spaceBackground', [this.p1Select.currentKey, this.p2Select.currentKey]);
+			game.state.start("Play", true, false, false, [this.roundselect.currentIndex, 0, 0], 'spaceBackground', [this.p1Select.currentKey, this.p2Select.currentKey]);
 		}
 		if(game.input.keyboard.isDown(Phaser.Keyboard.ESC)) {
 			game.state.start("MainMenu", true, false, true);

@@ -34,8 +34,10 @@ GameOver.prototype = {
 		var playerNum = this.winner.player;
 		if (playerNum == 1 && this.score[1] <= this.score[0]){
 			this.wins[this.score[1]-1].loadTexture('RoundWin');
+			if (this.score[1] >= this.score[0]) this.done = true;
 		} else if (this.score[2] <= this.score[0]) {
-			this.wins[Math.floor(this.wins.length/2) + this.score[2]-1].loadTexture('RoundWin');
+			this.wins[Math.floor(this.wins.length/2) + this.score[2]-1].loadTexture('RoundWin');if (this.score[1] >= this.score[0]) this.done = true;
+			if (this.score[2] >= this.score[0]) this.done = true;
 		}
 
 		// Make text for winner
@@ -52,10 +54,14 @@ GameOver.prototype = {
    		}
 
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-			this.winner.destroy();
-			this.gameOverText.destroy();
-			game.debris.destroy(true, true);
-			game.state.start("Play", false, false, false, this.score, this.bg, this.playerSprites);
+			if (this.done) {
+				game.state.start("PreGame");
+			} else {
+				this.winner.destroy();
+				this.gameOverText.destroy();
+				game.debris.destroy(true, true);
+				game.state.start("Play", false, false, false, this.score, this.bg, this.playerSprites);
+			}
 		} else if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)) {
 			this.winner.destroy();
 			this.gameOverText.destroy();
