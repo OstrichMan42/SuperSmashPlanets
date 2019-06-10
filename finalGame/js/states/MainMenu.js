@@ -51,6 +51,11 @@ MainMenu.prototype = {
 		    game.load.image('down', 'assets/img/Down_Key.png');
 		    game.load.image('left', 'assets/img/Left_Key.png');
 		    game.load.image('right', 'assets/img/Right_Key.png');
+		    game.load.image('up', 'assets/img/Up_Key.png');
+		    game.load.image('down', 'assets.img/Down_Key.png');
+		    game.load.image('selection', 'assets/img/SelectPlanet.png');
+		    game.load.image('vs', 'assets/img/Versus.png');
+		    game.load.image('NumberofRounds', 'assets/img/NumberofRounds.png');
 		    game.load.image('RoundWin', 'assets/img/RoundUIWon.png');
 		    game.load.image('RoundNotWin', 'assets/img/RoundUINotWon.png');
 		    game.load.image('RoundBar', 'assets/img/RoundUIBackground.png');
@@ -59,13 +64,18 @@ MainMenu.prototype = {
 		    game.load.image('NathanPiece2', 'assets/img/basketball.png');
 		    game.load.image('NathanPiece3', 'assets/img/basketball.png');
 		    game.load.image('NathanPiece4', 'assets/img/basketball.png');
-		    game.load.image('NathanPiece5', 'assets/img/basketball.png');
+			game.load.image('NathanPiece5', 'assets/img/basketball.png');
+			game.load.image('one', 'assets/img/Number_1.png');
+			game.load.image('two', 'assets/img/Number_2.png');
+			game.load.image('three', 'assets/img/Number_3.png');
+			game.load.image('four', 'assets/img/Number_4');
+			game.load.image('five', 'assets/img/Number_5.png');
 
 		    // Load audio
 		    game.load.audio('music', 'assets/audio/SpaceBattle.wav');
 		    game.load.audio('chillMusic', 'assets/audio/SpaceBattleCalm.wav');
 		    game.load.audio('woosh', 'assets/audio/woosh.mp3');
-		    game.load.audio('crash', 'assets/audio/explosion.mp3');
+		    game.load.audio('explosion', 'assets/audio/explosion.mp3');
 		    game.load.audio('boing', 'assets/audio/boing.mp3');
 
 		    

@@ -106,10 +106,10 @@ Tutorial.prototype = {
    		}
    		// Target gets hit
    		if (game.physics.arcade.overlap(this.target1, game.asteroids, targetHit, null, this)){
-   			game.crash.play("", 0, 1, false);
+   			game.explosion.play("", 0, 1, false);
    		}
    		if (game.physics.arcade.overlap(this.target2, game.asteroids, targetHit, null, this)){
-   			game.crash.play("", 0, 1, false);
+   			game.explosion.play("", 0, 1, false);
    		}
 
    		// Swap states
