@@ -68,11 +68,12 @@ MainMenu.prototype = {
 			game.load.image('one', 'assets/img/Number_1.png');
 			game.load.image('two', 'assets/img/Number_2.png');
 			game.load.image('three', 'assets/img/Number_3.png');
-			game.load.image('four', 'assets/img/Number_4');
+			game.load.image('four', 'assets/img/Number_4.png');
 			game.load.image('five', 'assets/img/Number_5.png');
 
 		    // Load audio
 		    game.load.audio('music', 'assets/audio/SpaceBattle.wav');
+		    game.load.audio('chillMusic', 'assets/audio/SpaceBattleCalm.wav');
 		    game.load.audio('woosh', 'assets/audio/woosh.mp3');
 		    game.load.audio('explosion', 'assets/audio/explosion.mp3');
 		    game.load.audio('boing', 'assets/audio/boing.mp3');
@@ -106,6 +107,10 @@ MainMenu.prototype = {
 
 		// Space is big. Really big. You just won't believe how vastly, hugely, mind-bogglingly big it is. I mean, you may think it's a long way down the road to the chemist, but that's just peanuts to space.
 		// game.world.setBounds(0, 0, 1500, 1500);
+
+		// How to return to the main menu
+		var text = "Press esc to\ncome back here.";
+		var tutorialText = game.add.text(500, 10, text, { fontSize: '20px', fill: '#ffffff'});
 
 		this.title = game.add.sprite(0, 0, 'title');
 		this.title.scale.setTo(0.47);

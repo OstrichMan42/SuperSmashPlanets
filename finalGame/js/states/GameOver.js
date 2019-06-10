@@ -53,19 +53,23 @@ GameOver.prototype = {
    			console.log('bonk');
    		}
 
+   		// Restart game
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+			// Game over
 			if (this.done) {
 				game.state.start("PreGame");
-			} else {
+			} else { // new round
 				this.winner.destroy();
 				this.gameOverText.destroy();
 				game.debris.destroy(true, true);
+				game.asteroids.forEach(function(kid) {kid.trail.destroy(); kid.destroy();}, this, true);
 				game.state.start("Play", false, false, false, this.score, this.bg, this.playerSprites);
 			}
 		} else if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)) {
 			this.winner.destroy();
 			this.gameOverText.destroy();
 			game.debris.destroy(true, true);
+			game.asteroids.forEach(function(kid) {kid.trail.destroy(); kid.destroy();}, this, true);
 			game.state.start("Play", false, false, true, this.score, this.bg, this.playerSprites);
 		}
 
